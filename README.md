@@ -3,6 +3,23 @@
 开发上下文入口：[简短变更索引](dev_context/README.md)、[当前状态](dev_context/CURRENT.md)。
 后续开发先按需加载这些记录，完整技术说明继续保留在 docs。
 
+## M2-A 多 Agent 兼容基础层
+
+新增独立的 Role → Runtime → Backend 接口、版本化任务、受限 Context 和 Agent 账本。
+Mock 可执行生成与独立审查两类任务；旧 M1 research 命令保持不变。
+
+```powershell
+uv run --offline python scripts/demo_agent_interop.py
+uv run --offline alpha-platform agent run --role generator --input configs/agent_generator_mock.json --ledger agent_tasks.sqlite3
+uv run --offline alpha-platform agent run --role critic --input configs/agent_critic_mock.json --ledger agent_tasks.sqlite3
+uv run --offline alpha-platform agent show --task-id sample-critic-v1 --ledger agent_tasks.sqlite3
+```
+
+Codex CLI 本地安装/登录预检已验证，但宿主隔离未验证，真实调用保持 UNSUPPORTED；
+Claude Code 未安装，DSH 仅预留注册槽。未启动 M2-B～D、真实回测或 RAG。
+详见 [操作说明](docs/AGENT_INTEROP.md)、[基线](docs/M2A_BASELINE_AUDIT.md)和
+[交付报告](docs/M2A_DELIVERY.md)。
+
 ## M1 实现与运行
 
 已实现离线最小闭环：Mock Generator → 基础 Validator → 去重/预算门控 →

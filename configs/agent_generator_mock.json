@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "task_id": "sample-generator-v1",
+  "subject": {"signal_id": "MOCK-SIGNAL-001", "signal_version": 1},
+  "context_version": "context-v1",
+  "resource_limits": {"timeout_seconds": 5, "max_attempts": 3, "max_output_bytes": 65536, "max_evidence_requests": 0},
+  "sources": {
+    "objective": "验证 M2-A 生成任务契约，不作收益预测",
+    "settings": {"region": "MOCK", "universe": "MOCK", "delay": 1},
+    "field_metadata": {"mock_value": {"type": "MATRIX", "description": "离线契约测试字段"}},
+    "evidence": [{"ref": "mock-evidence:1", "scope": "provided_evidence", "summary": "离线测试资料，不是平台事实"}]
+  }
+}

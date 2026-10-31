@@ -146,3 +146,30 @@ Existing samples are re-exported without Mock execution via --replay-existing.
 it validates real interactions, every source frame against Python, offline/XSS,
 empty-history and synthetic 2000-frame capacity. This is not a product server.
 See REPLAY_STUDIO.md for source precision, missing history and limits.
+
+## M2-A Agent interoperability foundation
+
+The legacy M1 agents.py/Controller/simulation/state/budget path remains unchanged.
+New agent_interop contracts separate Role, Runtime and Backend. Generator and Critic
+have distinct strict versioned results; execution errors never become research verdicts.
+ContextBuilder selects approved immutable public inputs, with role/subject/version/scopes
+included in the digest. Runtime reconstructs policy before dispatch, validates all
+response binding fields and checks role schema/evidence references before persistence.
+
+AgentLedger is a separate SQLite schema v1, refusing the M1 database. It stores only
+task/attempt/result/audit foundation records, with transactional current-attempt fencing,
+one validated result per task and idempotent settlement. No Seed/Repair/Dispute/Experiment
+tables or M2-B loop were added. Allocated Agent attempts do not charge simulation budget.
+
+Configuration selects registered factories only; adapters are fresh per Attempt and
+live singleton reuse is blocked. Mock is trusted in-process code with no tool API,
+not an OS sandbox. Codex/Claude compatibility adapters provide bounded preflight and
+fail-closed execution gates: no verified host isolation means UNSUPPORTED. DSH has only
+a registration slot, not a fabricated implementation. JSON cannot enable arbitrary
+shell/plugin loading or override these known-real-backend gates.
+
+observability/agent_summary.py exposes read-only safe identity/evidence summaries;
+M1 Replay nodes are not changed. CLI adds independent agent run/show/probe/smoke commands.
+No shared backend private session, raw output, secrets or hidden reasoning are persisted.
+AGENT_INTEROP.md documents logical-vs-physical isolation, cancellation limits and the
+actual optional-backend evidence; no real research process was launched in this batch.

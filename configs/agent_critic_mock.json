@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "task_id": "sample-critic-v1",
+  "subject": {"signal_id": "MOCK-SIGNAL-001", "signal_version": 1},
+  "context_version": "context-v1",
+  "resource_limits": {"timeout_seconds": 5, "max_attempts": 3, "max_output_bytes": 65536, "max_evidence_requests": 0},
+  "sources": {
+    "objective": "独立审查特定版本的正式提案，不读取生成方私有资料",
+    "settings": {"region": "MOCK", "universe": "MOCK", "delay": 1},
+    "field_metadata": {"mock_value": {"type": "MATRIX", "description": "离线契约测试字段"}},
+    "evidence": [{"ref": "mock-evidence:1", "scope": "provided_evidence", "summary": "离线测试资料，不是平台事实"}],
+    "proposal": {
+      "schema_version": 1, "signal_id": "MOCK-SIGNAL-001", "signal_version": 1,
+      "economic_hypothesis": "离线正式提案示例，预测价值未知", "mechanism": "仅用于兼容层验证",
+      "field_ids": ["mock_value"], "expression_suggestions": ["mock_value"],
+      "evidence_refs": ["mock-evidence:1"], "risks": ["未经实证验证"]
+    }
+  }
+}

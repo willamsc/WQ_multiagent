@@ -119,6 +119,9 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="M1 offline alpha research")
     parser.add_argument("--db", default=os.getenv("ALPHA_DB", "research.sqlite3"))
     sub = parser.add_subparsers(dest="command", required=True)
+    from .agent_interop.cli import add_agent_commands
+
+    add_agent_commands(sub)
     sub.add_parser("init-db")
     research = sub.add_parser("research").add_subparsers(dest="action", required=True)
     run = research.add_parser("run")
@@ -157,6 +160,10 @@ def main(argv=None):
         if action == "inspect":
             command.add_argument("--source-ref", required=True)
     args = parser.parse_args(argv)
+    if args.command == "agent":
+        from .agent_interop.cli import run_agent_command
+
+        return run_agent_command(args)
     handler = logging.StreamHandler()
     handler.setFormatter(JsonFormatter())
     logging.basicConfig(handlers=[handler])

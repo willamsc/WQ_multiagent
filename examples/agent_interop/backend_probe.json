@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-31T10:55:48.059244+00:00",
+  "backends": [
+    {
+      "schema_version": 1,
+      "backend": "codex",
+      "installed": true,
+      "executable_name": "codex.EXE",
+      "cli_version": "0.164.0-alpha.11.1",
+      "local_auth_status": "AUTHENTICATED_LOCAL",
+      "network_credential_validity": "NOT_TESTED",
+      "structured_flag_observed": true,
+      "host_isolation": "UNVERIFIED",
+      "research_task_execution": "NOT_RUN",
+      "status": "UNSUPPORTED",
+      "safe_error_code": "HOST_ISOLATION_UNVERIFIED",
+      "cli_initialization_warning": true
+    },
+    {
+      "schema_version": 1,
+      "backend": "claude_code",
+      "installed": false,
+      "executable_name": null,
+      "cli_version": null,
+      "local_auth_status": "NOT_CHECKED",
+      "network_credential_validity": "NOT_TESTED",
+      "structured_flag_observed": false,
+      "host_isolation": "UNVERIFIED",
+      "research_task_execution": "NOT_RUN",
+      "status": "UNSUPPORTED",
+      "safe_error_code": "BACKEND_NOT_INSTALLED"
+    }
+  ],
+  "dsh": "RESERVED_IMPLEMENTATION_UNCONFIRMED",
+  "research_calls": 0,
+  "limitation": "CLI installation/auth status is not evidence of enforced research isolation."
+}

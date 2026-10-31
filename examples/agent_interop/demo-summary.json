@@ -1,0 +1,340 @@
+{
+  "critic": {
+    "attempt_budget": {
+      "allocated_attempts": 1,
+      "limit": 3
+    },
+    "attempts": [
+      {
+        "attempt_id": "3bb8d5ec-185d-4960-ad8f-45fc1d50dcde",
+        "backend": "mock_alt",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:3bb8d5ec-185d-4960-ad8f-45fc1d50dcde",
+        "safe_error_code": null,
+        "source_ref": "agent_attempt:3bb8d5ec-185d-4960-ad8f-45fc1d50dcde",
+        "usage": {
+          "elapsed_ms": 1.641,
+          "model_cost": null,
+          "model_tokens": null
+        }
+      }
+    ],
+    "context_digest": "sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2",
+    "context_ref": "agent_context:sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2",
+    "context_version": "context-v1",
+    "events": [
+      {
+        "at": "2026-10-31 11:01:49",
+        "attempt_id": null,
+        "event_type": "TASK_CREATED",
+        "sequence": 7,
+        "source_ref": "agent_audit:7"
+      },
+      {
+        "at": "2026-10-31 11:01:49",
+        "attempt_id": "3bb8d5ec-185d-4960-ad8f-45fc1d50dcde",
+        "event_type": "ATTEMPT_STARTED",
+        "sequence": 8,
+        "source_ref": "agent_audit:8"
+      },
+      {
+        "at": "2026-10-31 11:01:49",
+        "attempt_id": "3bb8d5ec-185d-4960-ad8f-45fc1d50dcde",
+        "event_type": "ATTEMPT_SUCCEEDED",
+        "sequence": 9,
+        "source_ref": "agent_audit:9"
+      }
+    ],
+    "evidence": {
+      "agent_attempt:3bb8d5ec-185d-4960-ad8f-45fc1d50dcde": {
+        "source_kind": "AGENT_ATTEMPT",
+        "summary": {
+          "backend": "mock_alt",
+          "context_digest": "sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2",
+          "result_ref": "agent_result:3bb8d5ec-185d-4960-ad8f-45fc1d50dcde",
+          "safe_error_code": null,
+          "status": "SUCCEEDED",
+          "subject": {
+            "signal_id": "MOCK-SIGNAL-001",
+            "signal_version": 1
+          }
+        }
+      },
+      "agent_audit:7": {
+        "source_kind": "AGENT_AUDIT",
+        "summary": {
+          "context_digest": "sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2",
+          "role": "critic"
+        }
+      },
+      "agent_audit:8": {
+        "source_kind": "AGENT_AUDIT",
+        "summary": {
+          "backend": "mock_alt"
+        }
+      },
+      "agent_audit:9": {
+        "source_kind": "AGENT_AUDIT",
+        "summary": {
+          "safe_error_code": null,
+          "validated_result_ref": "agent_result:3bb8d5ec-185d-4960-ad8f-45fc1d50dcde"
+        }
+      },
+      "agent_context:sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2": {
+        "source_kind": "AGENT_CONTEXT",
+        "summary": {
+          "context_version": "context-v1",
+          "digest": "sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2",
+          "role": "critic",
+          "subject": {
+            "signal_id": "MOCK-SIGNAL-001",
+            "signal_version": 1
+          }
+        }
+      },
+      "agent_result:3bb8d5ec-185d-4960-ad8f-45fc1d50dcde": {
+        "source_kind": "AGENT_VALIDATED_RESULT",
+        "summary": {
+          "evidence_refs": [
+            "mock-evidence:1"
+          ],
+          "findings": [],
+          "schema_version": 1,
+          "signal_id": "MOCK-SIGNAL-001",
+          "signal_version": 1,
+          "verdict": "UNCERTAIN"
+        }
+      },
+      "agent_task:e0370943-8232-403e-a6be-602913ace077": {
+        "source_kind": "AGENT_TASK",
+        "summary": {
+          "allowed_evidence_scopes": [
+            "field_metadata",
+            "provided_evidence"
+          ],
+          "context_digest": "sha256:20bf77b4c01c5a6cda8d60856c8e31c685d05e6d56c4f6bbf570662b21ec44f2",
+          "context_version": "context-v1",
+          "required_capabilities": [
+            "bounded_execution",
+            "fresh_session",
+            "scoped_context",
+            "structured_result"
+          ],
+          "resource_limits": {
+            "max_attempts": 3,
+            "max_evidence_requests": 0,
+            "max_output_bytes": 65536,
+            "timeout_seconds": 30
+          },
+          "result_schema": "review_result_v1",
+          "role": "critic",
+          "schema_version": 1,
+          "subject": {
+            "signal_id": "MOCK-SIGNAL-001",
+            "signal_version": 1
+          },
+          "task_id": "e0370943-8232-403e-a6be-602913ace077"
+        }
+      },
+      "mock-evidence:1": {
+        "source_kind": "APPROVED_INPUT_NOT_INDEPENDENTLY_VERIFIED",
+        "summary": {
+          "ref": "mock-evidence:1",
+          "scope": "provided_evidence",
+          "summary": "离线测试资料，不是平台事实"
+        }
+      }
+    },
+    "limitations": [
+      "Input evidence references are approved inputs, not verified economic facts",
+      "No Agent workflow nodes were added to M1 Replay",
+      "Mock context isolation is not an OS sandbox"
+    ],
+    "namespace": "AGENT_INTEROP",
+    "role": "critic",
+    "schema_version": 1,
+    "simulation_budget": "NOT_ACCESSED",
+    "source_ref": "agent_task:e0370943-8232-403e-a6be-602913ace077",
+    "subject": {
+      "signal_id": "MOCK-SIGNAL-001",
+      "signal_version": 1
+    },
+    "task_id": "e0370943-8232-403e-a6be-602913ace077",
+    "task_status": "COMPLETED"
+  },
+  "generator": {
+    "attempt_budget": {
+      "allocated_attempts": 1,
+      "limit": 3
+    },
+    "attempts": [
+      {
+        "attempt_id": "1161e755-e38a-4649-80d9-9c2a5e694971",
+        "backend": "mock",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:1161e755-e38a-4649-80d9-9c2a5e694971",
+        "safe_error_code": null,
+        "source_ref": "agent_attempt:1161e755-e38a-4649-80d9-9c2a5e694971",
+        "usage": {
+          "elapsed_ms": 2.663,
+          "model_cost": null,
+          "model_tokens": null
+        }
+      }
+    ],
+    "context_digest": "sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd",
+    "context_ref": "agent_context:sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd",
+    "context_version": "context-v1",
+    "events": [
+      {
+        "at": "2026-10-31 11:01:49",
+        "attempt_id": null,
+        "event_type": "TASK_CREATED",
+        "sequence": 4,
+        "source_ref": "agent_audit:4"
+      },
+      {
+        "at": "2026-10-31 11:01:49",
+        "attempt_id": "1161e755-e38a-4649-80d9-9c2a5e694971",
+        "event_type": "ATTEMPT_STARTED",
+        "sequence": 5,
+        "source_ref": "agent_audit:5"
+      },
+      {
+        "at": "2026-10-31 11:01:49",
+        "attempt_id": "1161e755-e38a-4649-80d9-9c2a5e694971",
+        "event_type": "ATTEMPT_SUCCEEDED",
+        "sequence": 6,
+        "source_ref": "agent_audit:6"
+      }
+    ],
+    "evidence": {
+      "agent_attempt:1161e755-e38a-4649-80d9-9c2a5e694971": {
+        "source_kind": "AGENT_ATTEMPT",
+        "summary": {
+          "backend": "mock",
+          "context_digest": "sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd",
+          "result_ref": "agent_result:1161e755-e38a-4649-80d9-9c2a5e694971",
+          "safe_error_code": null,
+          "status": "SUCCEEDED",
+          "subject": {
+            "signal_id": "MOCK-SIGNAL-001",
+            "signal_version": 1
+          }
+        }
+      },
+      "agent_audit:4": {
+        "source_kind": "AGENT_AUDIT",
+        "summary": {
+          "context_digest": "sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd",
+          "role": "generator"
+        }
+      },
+      "agent_audit:5": {
+        "source_kind": "AGENT_AUDIT",
+        "summary": {
+          "backend": "mock"
+        }
+      },
+      "agent_audit:6": {
+        "source_kind": "AGENT_AUDIT",
+        "summary": {
+          "safe_error_code": null,
+          "validated_result_ref": "agent_result:1161e755-e38a-4649-80d9-9c2a5e694971"
+        }
+      },
+      "agent_context:sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd": {
+        "source_kind": "AGENT_CONTEXT",
+        "summary": {
+          "context_version": "context-v1",
+          "digest": "sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd",
+          "role": "generator",
+          "subject": {
+            "signal_id": "MOCK-SIGNAL-001",
+            "signal_version": 1
+          }
+        }
+      },
+      "agent_result:1161e755-e38a-4649-80d9-9c2a5e694971": {
+        "source_kind": "AGENT_VALIDATED_RESULT",
+        "summary": {
+          "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+          "evidence_refs": [
+            "mock-evidence:1"
+          ],
+          "expression_suggestions": [
+            "mock_value"
+          ],
+          "field_ids": [
+            "mock_value"
+          ],
+          "mechanism": "仅用于契约验证，不是研究结论",
+          "risks": [
+            "未经实证验证"
+          ],
+          "schema_version": 1,
+          "signal_id": "MOCK-SIGNAL-001",
+          "signal_version": 1
+        }
+      },
+      "agent_task:9aca9dfe-6e64-4c47-9c32-f81c8245fcfe": {
+        "source_kind": "AGENT_TASK",
+        "summary": {
+          "allowed_evidence_scopes": [
+            "field_metadata",
+            "provided_evidence"
+          ],
+          "context_digest": "sha256:9610c668f44c42cde414136b021c941d458b29a4eb93c80523c58c60e67118bd",
+          "context_version": "context-v1",
+          "required_capabilities": [
+            "bounded_execution",
+            "fresh_session",
+            "scoped_context",
+            "structured_result"
+          ],
+          "resource_limits": {
+            "max_attempts": 3,
+            "max_evidence_requests": 0,
+            "max_output_bytes": 65536,
+            "timeout_seconds": 30
+          },
+          "result_schema": "main_signal_proposal_v1",
+          "role": "generator",
+          "schema_version": 1,
+          "subject": {
+            "signal_id": "MOCK-SIGNAL-001",
+            "signal_version": 1
+          },
+          "task_id": "9aca9dfe-6e64-4c47-9c32-f81c8245fcfe"
+        }
+      },
+      "mock-evidence:1": {
+        "source_kind": "APPROVED_INPUT_NOT_INDEPENDENTLY_VERIFIED",
+        "summary": {
+          "ref": "mock-evidence:1",
+          "scope": "provided_evidence",
+          "summary": "离线测试资料，不是平台事实"
+        }
+      }
+    },
+    "limitations": [
+      "Input evidence references are approved inputs, not verified economic facts",
+      "No Agent workflow nodes were added to M1 Replay",
+      "Mock context isolation is not an OS sandbox"
+    ],
+    "namespace": "AGENT_INTEROP",
+    "role": "generator",
+    "schema_version": 1,
+    "simulation_budget": "NOT_ACCESSED",
+    "source_ref": "agent_task:9aca9dfe-6e64-4c47-9c32-f81c8245fcfe",
+    "subject": {
+      "signal_id": "MOCK-SIGNAL-001",
+      "signal_version": 1
+    },
+    "task_id": "9aca9dfe-6e64-4c47-9c32-f81c8245fcfe",
+    "task_status": "COMPLETED"
+  },
+  "mock_only": true,
+  "schema_version": 1,
+  "simulation_calls": 0
+}
