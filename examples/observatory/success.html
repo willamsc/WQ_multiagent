@@ -1,0 +1,421 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';
+script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Research Observatory · 0dca8079-4331-4cdc-967e-345d0c1515d5</title><style>
+:root{font:15px/1.55 system-ui,sans-serif;color:#dce7f5;background:#101722}
+body{max-width:1250px;margin:auto;padding:28px}h1{font-size:26px}h2{font-size:18px}
+small,.muted{color:#9aafc7}header,section{border:1px solid #33455b;padding:20px;
+border-radius:12px;margin-bottom:18px;background:#172232}.overview{display:flex;gap:22px;flex-wrap:wrap}
+.graph{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.node{border:1px solid #54708c;padding:12px;
+border-radius:8px;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.COMPLETED{border-color:#40bfa1}.FAILED,.REJECTED{border-color:#f18d8d}
+.UNKNOWN,.RUNNING{border-color:#e6b65f}.NOT_VISITED,.INFERRED{opacity:.6;border-style:dashed}
+a{color:#88c5ff}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:10px;text-align:left;
+border-bottom:1px solid #33455b;overflow-wrap:anywhere}.scroll{overflow-x:auto}
+details{padding:8px;border-bottom:1px solid #33455b}summary{cursor:pointer;overflow-wrap:anywhere}
+select{max-width:250px;margin:5px;padding:6px}@media(max-width:650px){body{padding:10px}
+section,header{padding:12px}table{min-width:650px}}
+</style></head><body><header><div class="muted">M1-O · OFFLINE · READ ONLY</div>
+<h1>Research Observatory</h1><div>Run 0dca8079-4331-4cdc-967e-345d0c1515d5</div>
+<p class="overview"><strong>STATUS COMPLETED</strong>
+<span>PHASE M1</span><span>BUDGET total / reserved / used:
+1 / 0 /
+1</span></p>
+<details><summary>Run / candidate / job facts</summary><pre>{
+  &quot;budget&quot;: {
+    &quot;reserved&quot;: 0,
+    &quot;total&quot;: 1,
+    &quot;used&quot;: 1
+  },
+  &quot;config_summary&quot;: {
+    &quot;delay&quot;: 1,
+    &quot;instrument&quot;: &quot;EQUITY&quot;,
+    &quot;min_sharpe&quot;: 1.0,
+    &quot;region&quot;: &quot;GBR&quot;,
+    &quot;universe&quot;: &quot;TOP700&quot;
+  },
+  &quot;last_reason_code&quot;: &quot;MOCK_GATE_PASS&quot;,
+  &quot;phase&quot;: &quot;M1&quot;,
+  &quot;source_ref&quot;: &quot;run:0dca8079-4331-4cdc-967e-345d0c1515d5&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre>
+<pre>[
+  {
+    &quot;attempt_count&quot;: 1,
+    &quot;candidate_id&quot;: &quot;3114b4cb-61ce-420b-b1cf-4cbcc423548e&quot;,
+    &quot;candidate_ref&quot;: &quot;alpha:3114b4cb-61ce-420b-b1cf-4cbcc423548e&quot;,
+    &quot;job_id&quot;: &quot;627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+    &quot;remote_id_known&quot;: true,
+    &quot;result_present&quot;: true,
+    &quot;result_ref&quot;: &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+    &quot;source_ref&quot;: &quot;job:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+    &quot;status&quot;: &quot;COMPLETED&quot;
+  }
+]</pre></details></header>
+<section><h2>Execution graph</h2><p class="muted">Expected M1 topology; node states and edges are
+derived from evidence. Dashed nodes were not observed or are inferred. No recovery controls.</p>
+<div class="graph"><a class="node COMPLETED" href="#graph-run_admission"><strong>run_admission</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-generator"><strong>generator</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-validator"><strong>validator</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-dedup_budget"><strong>dedup_budget</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-queue"><strong>queue</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-submit"><strong>submit</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-poll"><strong>poll</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-metrics_gate"><strong>metrics_gate</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-result_persist"><strong>result_persist</strong><span>COMPLETED</span></a><span class="arrow" aria-hidden="true">→</span><a class="node COMPLETED" href="#graph-run_terminal"><strong>run_terminal</strong><span>COMPLETED</span></a></div><details><summary>Graph evidence and observed edges</summary>
+<details id="graph-run_admission"><summary>run_admission · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:1&quot;
+  ],
+  &quot;id&quot;: &quot;run_admission&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-generator"><summary>generator · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:2&quot;
+  ],
+  &quot;id&quot;: &quot;generator&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-validator"><summary>validator · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:3&quot;
+  ],
+  &quot;id&quot;: &quot;validator&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-dedup_budget"><summary>dedup_budget · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:5&quot;
+  ],
+  &quot;id&quot;: &quot;dedup_budget&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-queue"><summary>queue · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:4&quot;
+  ],
+  &quot;id&quot;: &quot;queue&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-submit"><summary>submit · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:6&quot;,
+    &quot;audit:7&quot;,
+    &quot;audit:8&quot;,
+    &quot;job:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+  ],
+  &quot;id&quot;: &quot;submit&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-poll"><summary>poll · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:10&quot;,
+    &quot;audit:11&quot;,
+    &quot;audit:9&quot;,
+    &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+  ],
+  &quot;id&quot;: &quot;poll&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-metrics_gate"><summary>metrics_gate · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+    &quot;trace:14&quot;
+  ],
+  &quot;id&quot;: &quot;metrics_gate&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-result_persist"><summary>result_persist · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:12&quot;,
+    &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+  ],
+  &quot;id&quot;: &quot;result_persist&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="graph-run_terminal"><summary>run_terminal · derived</summary><pre>{
+  &quot;derived&quot;: true,
+  &quot;evidence_refs&quot;: [
+    &quot;audit:13&quot;,
+    &quot;run:0dca8079-4331-4cdc-967e-345d0c1515d5&quot;
+  ],
+  &quot;id&quot;: &quot;run_terminal&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><pre>[
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;run_admission&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;generator&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;generator&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;validator&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;validator&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;dedup_budget&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;dedup_budget&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;queue&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;queue&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;submit&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;submit&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;poll&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;poll&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;metrics_gate&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;metrics_gate&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;result_persist&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;from&quot;: &quot;result_persist&quot;,
+    &quot;kind&quot;: &quot;expected&quot;,
+    &quot;to&quot;: &quot;run_terminal&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:1&quot;,
+      &quot;audit:2&quot;
+    ],
+    &quot;from&quot;: &quot;run_admission&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;generator&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:2&quot;,
+      &quot;audit:3&quot;
+    ],
+    &quot;from&quot;: &quot;generator&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;validator&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:3&quot;,
+      &quot;audit:4&quot;
+    ],
+    &quot;from&quot;: &quot;validator&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;queue&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:4&quot;,
+      &quot;audit:5&quot;
+    ],
+    &quot;from&quot;: &quot;queue&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;dedup_budget&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:5&quot;,
+      &quot;audit:6&quot;,
+      &quot;audit:7&quot;,
+      &quot;audit:8&quot;,
+      &quot;job:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+    ],
+    &quot;from&quot;: &quot;dedup_budget&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;submit&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:10&quot;,
+      &quot;audit:11&quot;,
+      &quot;audit:6&quot;,
+      &quot;audit:7&quot;,
+      &quot;audit:8&quot;,
+      &quot;audit:9&quot;,
+      &quot;job:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+      &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+    ],
+    &quot;from&quot;: &quot;submit&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;poll&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:10&quot;,
+      &quot;audit:11&quot;,
+      &quot;audit:12&quot;,
+      &quot;audit:9&quot;,
+      &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+    ],
+    &quot;from&quot;: &quot;poll&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;result_persist&quot;
+  },
+  {
+    &quot;derived&quot;: true,
+    &quot;evidence_refs&quot;: [
+      &quot;audit:12&quot;,
+      &quot;audit:13&quot;,
+      &quot;result:627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;
+    ],
+    &quot;from&quot;: &quot;result_persist&quot;,
+    &quot;kind&quot;: &quot;observed&quot;,
+    &quot;to&quot;: &quot;run_terminal&quot;
+  }
+]</pre></details></section>
+<section><h2>Anomalies / evidence coverage</h2><ul><li>No detected anomalies.</li></ul>
+<pre>[]</pre><p>Run COMPLETED; 1 jobs; 0 anomalies. Derived observations are not root-cause diagnoses.</p></section>
+<section><h2>Timeline</h2><label>Node <select id="node"><option value="">All</option><option>run_admission</option><option>generator</option><option>validator</option><option>dedup_budget</option><option>queue</option><option>submit</option><option>poll</option><option>metrics_gate</option><option>result_persist</option><option>run_terminal</option></select></label>
+<label>Job <select id="job"><option value="">All</option><option>627d28e6-10da-400f-8e82-ee56dd8fcc0a</option></select></label>
+<label><input type="checkbox" id="errors"> Errors / rejected / unknown</label>
+<div class="scroll"><table><thead><tr><th>UTC</th><th>Node</th><th>Action / source</th>
+<th>Outcome</th><th>Evidence</th></tr></thead><tbody><tr data-node="run_admission" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>run_admission</td><td>CREATED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:1">audit:1</a></td></tr><tr data-node="generator" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>generator</td><td>GENERATED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:2">audit:2</a></td></tr><tr data-node="validator" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>validator</td><td>VALIDATED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:3">audit:3</a></td></tr><tr data-node="queue" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>queue</td><td>PENDING<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:4">audit:4</a></td></tr><tr data-node="dedup_budget" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>dedup_budget</td><td>RESERVED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:5">audit:5</a></td></tr><tr data-node="submit" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.000Z</td><td>submit</td><td>SUBMITTING<br><small>AUDIT</small></td><td>RUNNING</td><td><a href="#audit:6">audit:6</a></td></tr><tr data-node="submit" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.000Z</td><td>submit</td><td>SUBMIT_INTENT<br><small>AUDIT</small></td><td>RUNNING</td><td><a href="#audit:7">audit:7</a></td></tr><tr data-node="submit" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>submit</td><td>SUBMITTED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:8">audit:8</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.000Z</td><td>poll</td><td>POLLING<br><small>AUDIT</small></td><td>RUNNING</td><td><a href="#audit:9">audit:9</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.000Z</td><td>poll</td><td>POLL_INTENT<br><small>AUDIT</small></td><td>RUNNING</td><td><a href="#audit:10">audit:10</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>poll</td><td>FETCH_INTENT<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:11">audit:11</a></td></tr><tr data-node="result_persist" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>result_persist</td><td>COMPLETED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:12">audit:12</a></td></tr><tr data-node="run_terminal" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.000Z</td><td>run_terminal</td><td>COMPLETED<br><small>AUDIT</small></td><td>COMPLETED</td><td><a href="#audit:13">audit:13</a></td></tr><tr data-node="generator" data-job="" data-outcome="RUNNING"><td>2026-10-30T11:06:04.741Z</td><td>generator</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:1">trace:1</a></td></tr><tr data-node="generator" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.741Z</td><td>generator</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:2">trace:2</a></td></tr><tr data-node="run_admission" data-job="" data-outcome="RUNNING"><td>2026-10-30T11:06:04.741Z</td><td>run_admission</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:3">trace:3</a></td></tr><tr data-node="validator" data-job="" data-outcome="RUNNING"><td>2026-10-30T11:06:04.742Z</td><td>validator</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:4">trace:4</a></td></tr><tr data-node="validator" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.743Z</td><td>validator</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:5">trace:5</a></td></tr><tr data-node="run_admission" data-job="" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.747Z</td><td>run_admission</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:6">trace:6</a></td></tr><tr data-node="submit" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.751Z</td><td>submit</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:7">trace:7</a></td></tr><tr data-node="submit" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.752Z</td><td>submit</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:8">trace:8</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.758Z</td><td>poll</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:9">trace:9</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.759Z</td><td>poll</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:10">trace:10</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.762Z</td><td>poll</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:11">trace:11</a></td></tr><tr data-node="poll" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.762Z</td><td>poll</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:12">trace:12</a></td></tr><tr data-node="metrics_gate" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.762Z</td><td>metrics_gate</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:13">trace:13</a></td></tr><tr data-node="metrics_gate" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.762Z</td><td>metrics_gate</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:14">trace:14</a></td></tr><tr data-node="result_persist" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="RUNNING"><td>2026-10-30T11:06:04.762Z</td><td>result_persist</td><td>NODE_STARTED<br><small>TRACE</small></td><td>RUNNING</td><td><a href="#trace:15">trace:15</a></td></tr><tr data-node="result_persist" data-job="627d28e6-10da-400f-8e82-ee56dd8fcc0a" data-outcome="COMPLETED"><td>2026-10-30T11:06:04.766Z</td><td>result_persist</td><td>NODE_COMPLETED<br><small>TRACE</small></td><td>COMPLETED</td><td><a href="#trace:16">trace:16</a></td></tr></tbody></table></div></section>
+<section><h2>Artifact inspector</h2><p class="muted">Follow an evidence link. Summaries are allowlisted,
+redacted and bounded; full raw responses are omitted.</p><details id="alpha:3114b4cb-61ce-420b-b1cf-4cbcc423548e"><summary>alpha:3114b4cb-61ce-420b-b1cf-4cbcc423548e · BUSINESS</summary><pre>{
+  &quot;canonical_expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;fingerprint&quot;: &quot;4cc8e322aad92e79da7fe2fb2675266a7ab16010ad555bba7334724cadc95e95&quot;
+}</pre></details><details id="attempt:40b9cf88-076a-4b02-add1-6d1ea48060af"><summary>attempt:40b9cf88-076a-4b02-add1-6d1ea48060af · BUSINESS</summary><pre>{
+  &quot;at&quot;: &quot;2026-10-30T11:06:04.000Z&quot;,
+  &quot;job_id&quot;: &quot;627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+  &quot;outcome&quot;: &quot;ACCEPTED&quot;,
+  &quot;remote_ref_present&quot;: true
+}</pre></details><details id="audit:1"><summary>audit:1 · AUDIT</summary><pre>{}</pre></details><details id="audit:10"><summary>audit:10 · AUDIT</summary><pre>{}</pre></details><details id="audit:11"><summary>audit:11 · AUDIT</summary><pre>{}</pre></details><details id="audit:12"><summary>audit:12 · AUDIT</summary><pre>{}</pre></details><details id="audit:13"><summary>audit:13 · AUDIT</summary><pre>{
+  &quot;message&quot;: &quot;MOCK_GATE_PASS; not a platform submission check&quot;,
+  &quot;reason_code&quot;: &quot;MOCK_GATE_PASS&quot;
+}</pre></details><details id="audit:2"><summary>audit:2 · AUDIT</summary><pre>{
+  &quot;expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;field_ids&quot;: [
+    &quot;mock_value&quot;
+  ]
+}</pre></details><details id="audit:3"><summary>audit:3 · AUDIT</summary><pre>{
+  &quot;fingerprint&quot;: &quot;4cc8e322aad92e79da7fe2fb2675266a7ab16010ad555bba7334724cadc95e95&quot;
+}</pre></details><details id="audit:4"><summary>audit:4 · AUDIT</summary><pre>{}</pre></details><details id="audit:5"><summary>audit:5 · AUDIT</summary><pre>{
+  &quot;budget_delta&quot;: {
+    &quot;derived&quot;: true,
+    &quot;reserved&quot;: 1,
+    &quot;used&quot;: 0
+  }
+}</pre></details><details id="audit:6"><summary>audit:6 · AUDIT</summary><pre>{}</pre></details><details id="audit:7"><summary>audit:7 · AUDIT</summary><pre>{}</pre></details><details id="audit:8"><summary>audit:8 · AUDIT</summary><pre>{
+  &quot;budget_delta&quot;: {
+    &quot;derived&quot;: true,
+    &quot;reserved&quot;: -1,
+    &quot;used&quot;: 1
+  }
+}</pre></details><details id="audit:9"><summary>audit:9 · AUDIT</summary><pre>{}</pre></details><details id="job:627d28e6-10da-400f-8e82-ee56dd8fcc0a"><summary>job:627d28e6-10da-400f-8e82-ee56dd8fcc0a · BUSINESS</summary><pre>{
+  &quot;attempt_count&quot;: 1,
+  &quot;candidate_id&quot;: &quot;3114b4cb-61ce-420b-b1cf-4cbcc423548e&quot;,
+  &quot;candidate_ref&quot;: &quot;alpha:3114b4cb-61ce-420b-b1cf-4cbcc423548e&quot;,
+  &quot;job_id&quot;: &quot;627d28e6-10da-400f-8e82-ee56dd8fcc0a&quot;,
+  &quot;remote_id_known&quot;: true,
+  &quot;result_present&quot;: true,
+  &quot;result_ref&quot;: null,
+  &quot;status&quot;: &quot;COMPLETED&quot;
+}</pre></details><details id="result:627d28e6-10da-400f-8e82-ee56dd8fcc0a"><summary>result:627d28e6-10da-400f-8e82-ee56dd8fcc0a · BUSINESS</summary><pre>{
+  &quot;checks_present&quot;: true,
+  &quot;gate&quot;: &quot;PASS&quot;,
+  &quot;metrics&quot;: {
+    &quot;fitness&quot;: 0.8,
+    &quot;sharpe&quot;: 1.25,
+    &quot;turnover&quot;: 0.2
+  },
+  &quot;raw_response_omitted&quot;: true
+}</pre></details><details id="run:0dca8079-4331-4cdc-967e-345d0c1515d5"><summary>run:0dca8079-4331-4cdc-967e-345d0c1515d5 · BUSINESS</summary><pre>{
+  &quot;budget_limit&quot;: 1,
+  &quot;created_at&quot;: &quot;2026-10-30T11:06:04.000Z&quot;,
+  &quot;phase&quot;: &quot;M1&quot;,
+  &quot;reserved_budget&quot;: 0,
+  &quot;status&quot;: &quot;COMPLETED&quot;,
+  &quot;used_budget&quot;: 1
+}</pre></details><details id="trace:1"><summary>trace:1 · TRACE</summary><pre>{
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:10"><summary>trace:10 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 0.338,
+  &quot;remote_ref_present&quot;: true,
+  &quot;status&quot;: &quot;COMPLETED&quot;,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:11"><summary>trace:11 · TRACE</summary><pre>{
+  &quot;remote_ref_present&quot;: true,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:12"><summary>trace:12 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 0.565,
+  &quot;remote_ref_present&quot;: true,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:13"><summary>trace:13 · TRACE</summary><pre>{
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:14"><summary>trace:14 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 0.011,
+  &quot;gate&quot;: &quot;PASS&quot;,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:15"><summary>trace:15 · TRACE</summary><pre>{
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:16"><summary>trace:16 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 3.342,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:2"><summary>trace:2 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 0.081,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:3"><summary>trace:3 · TRACE</summary><pre>{
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:4"><summary>trace:4 · TRACE</summary><pre>{
+  &quot;expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:5"><summary>trace:5 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 0.608,
+  &quot;expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:6"><summary>trace:6 · TRACE</summary><pre>{
+  &quot;duration_ms&quot;: 5.753,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:7"><summary>trace:7 · TRACE</summary><pre>{
+  &quot;attempt_number&quot;: 1,
+  &quot;expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:8"><summary>trace:8 · TRACE</summary><pre>{
+  &quot;attempt_number&quot;: 1,
+  &quot;duration_ms&quot;: 0.535,
+  &quot;expression&quot;: &quot;mock_rank(mock_value)&quot;,
+  &quot;truncated&quot;: false
+}</pre></details><details id="trace:9"><summary>trace:9 · TRACE</summary><pre>{
+  &quot;remote_ref_present&quot;: true,
+  &quot;truncated&quot;: false
+}</pre></details></section>
+<footer><pre>[
+  &quot;M1 has no automatic reconciliation or recovery&quot;,
+  &quot;Graph and budget deltas are derived; raw adapter data is omitted&quot;,
+  &quot;Missing optional trace does not indicate execution failure&quot;,
+  &quot;Pre-admission events may have null job/candidate IDs; no IDs are invented&quot;,
+  &quot;Audit timestamps have second precision; cross-source timing ties are approximate&quot;
+]</pre><small>Snapshot 2026-10-30T11:12:19.594Z</small></footer>
+<script>document.querySelectorAll('select,input').forEach(x=>x.addEventListener('change',()=>{
+const node=document.getElementById('node').value,job=document.getElementById('job').value;
+const errors=document.getElementById('errors').checked;
+document.querySelectorAll('tbody tr').forEach(r=>{r.hidden=(node&&r.dataset.node!==node)||
+(job&&r.dataset.job!==job)||(errors&&!['FAILED','REJECTED','UNKNOWN'].includes(r.dataset.outcome));});
+}));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{
+let e=document.getElementById(decodeURIComponent(a.hash.slice(1)));
+while(e){if(e.tagName==='DETAILS')e.open=true;e=e.parentElement;}
+}));</script></body></html>

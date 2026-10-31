@@ -1,0 +1,745 @@
+{
+  "anomalies": [
+    {
+      "code": "REMOTE_EXECUTION_UNKNOWN",
+      "derived": true,
+      "evidence_refs": [
+        "job:ca06f816-e98a-43c4-914e-9d36575b8316"
+      ],
+      "node": "submit",
+      "node_status": "UNKNOWN",
+      "severity": "warning"
+    },
+    {
+      "code": "MISSING_RECEIPT",
+      "derived": true,
+      "evidence_refs": [
+        "job:ca06f816-e98a-43c4-914e-9d36575b8316"
+      ],
+      "node": "submit",
+      "node_status": "UNKNOWN",
+      "severity": "warning"
+    }
+  ],
+  "attempts": [
+    {
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "outcome": "REMOTE_UNKNOWN",
+      "source_ref": "attempt:81bdd8df-89d4-4af3-921f-ceaec4788c7c"
+    }
+  ],
+  "edges": [
+    {
+      "derived": true,
+      "from": "run_admission",
+      "kind": "expected",
+      "to": "generator"
+    },
+    {
+      "derived": true,
+      "from": "generator",
+      "kind": "expected",
+      "to": "validator"
+    },
+    {
+      "derived": true,
+      "from": "validator",
+      "kind": "expected",
+      "to": "dedup_budget"
+    },
+    {
+      "derived": true,
+      "from": "dedup_budget",
+      "kind": "expected",
+      "to": "queue"
+    },
+    {
+      "derived": true,
+      "from": "queue",
+      "kind": "expected",
+      "to": "submit"
+    },
+    {
+      "derived": true,
+      "from": "submit",
+      "kind": "expected",
+      "to": "poll"
+    },
+    {
+      "derived": true,
+      "from": "poll",
+      "kind": "expected",
+      "to": "metrics_gate"
+    },
+    {
+      "derived": true,
+      "from": "metrics_gate",
+      "kind": "expected",
+      "to": "result_persist"
+    },
+    {
+      "derived": true,
+      "from": "result_persist",
+      "kind": "expected",
+      "to": "run_terminal"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:27",
+        "audit:28"
+      ],
+      "from": "run_admission",
+      "kind": "observed",
+      "to": "generator"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:28",
+        "audit:29"
+      ],
+      "from": "generator",
+      "kind": "observed",
+      "to": "validator"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:29",
+        "audit:30"
+      ],
+      "from": "validator",
+      "kind": "observed",
+      "to": "queue"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:30",
+        "audit:31"
+      ],
+      "from": "queue",
+      "kind": "observed",
+      "to": "dedup_budget"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:31",
+        "audit:32",
+        "audit:33",
+        "audit:34",
+        "job:ca06f816-e98a-43c4-914e-9d36575b8316"
+      ],
+      "from": "dedup_budget",
+      "kind": "observed",
+      "to": "submit"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:32",
+        "audit:33",
+        "audit:34",
+        "audit:35",
+        "job:ca06f816-e98a-43c4-914e-9d36575b8316"
+      ],
+      "from": "submit",
+      "kind": "observed",
+      "to": "run_terminal"
+    }
+  ],
+  "events": [
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:27",
+      "event_type": "CREATED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {},
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 27,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:27"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:28",
+      "event_type": "GENERATED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "expression": "mock_rank(mock_value)",
+        "field_ids": [
+          "mock_value"
+        ]
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 28,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:28"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:29",
+      "event_type": "VALIDATED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "fingerprint": "3d8c30e3ce27cb2339c93b46037dd76c64ffe414f5709ef104e9cd5e1d2784bc"
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 29,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:29"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "audit:30",
+      "event_type": "PENDING",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "queue",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {},
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 30,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:30"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "audit:31",
+      "event_type": "RESERVED",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "dedup_budget",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "budget_delta": {
+          "derived": true,
+          "reserved": 1,
+          "used": 0
+        }
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 31,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:31"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "audit:32",
+      "event_type": "SUBMITTING",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "submit",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "RUNNING",
+      "payload": {},
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 32,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:32"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "audit:33",
+      "event_type": "SUBMIT_INTENT",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "submit",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "RUNNING",
+      "payload": {},
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 33,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:33"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "audit:34",
+      "event_type": "UNKNOWN",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "submit",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "UNKNOWN",
+      "payload": {},
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 34,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:34"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:35",
+      "event_type": "FAILED",
+      "job_id": null,
+      "node": "run_terminal",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "FAILED",
+      "payload": {
+        "message": "REMOTE_UNKNOWN: do not resubmit automatically",
+        "reason_code": "REMOTE_UNKNOWN"
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 35,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:35"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:35",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.933Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 35,
+      "source_kind": "TRACE",
+      "source_ref": "trace:35"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:36",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.933Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 0.075,
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 36,
+      "source_kind": "TRACE",
+      "source_ref": "trace:36"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:37",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.934Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 37,
+      "source_kind": "TRACE",
+      "source_ref": "trace:37"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:38",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.934Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 38,
+      "source_kind": "TRACE",
+      "source_ref": "trace:38"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:39",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.935Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 0.573,
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 39,
+      "source_kind": "TRACE",
+      "source_ref": "trace:39"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:40",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.938Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 4.717,
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 40,
+      "source_kind": "TRACE",
+      "source_ref": "trace:40"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "trace:41",
+      "event_type": "NODE_STARTED",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "submit",
+      "occurred_at": "2026-10-30T11:06:04.942Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "attempt_number": 1,
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 41,
+      "source_kind": "TRACE",
+      "source_ref": "trace:41"
+    },
+    {
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "derived": false,
+      "event_id": "trace:42",
+      "event_type": "NODE_FAILED",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "node": "submit",
+      "occurred_at": "2026-10-30T11:06:04.943Z",
+      "outcome": "FAILED",
+      "payload": {
+        "duration_ms": 0.615,
+        "error_class": "TimeoutError",
+        "reason_code": "NODE_EXCEPTION",
+        "truncated": false
+      },
+      "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+      "schema_version": 1,
+      "sequence": 42,
+      "source_kind": "TRACE",
+      "source_ref": "trace:42"
+    }
+  ],
+  "evidence": {
+    "alpha:7f702dee-2ce8-421d-ad71-e3053d01a87b": {
+      "source_kind": "BUSINESS",
+      "summary": {
+        "canonical_expression": "mock_rank(mock_value)",
+        "expression": "mock_rank(mock_value)",
+        "fingerprint": "3d8c30e3ce27cb2339c93b46037dd76c64ffe414f5709ef104e9cd5e1d2784bc"
+      }
+    },
+    "attempt:81bdd8df-89d4-4af3-921f-ceaec4788c7c": {
+      "source_kind": "BUSINESS",
+      "summary": {
+        "at": "2026-10-30T11:06:04.000Z",
+        "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+        "outcome": "REMOTE_UNKNOWN",
+        "remote_ref_present": false
+      }
+    },
+    "audit:27": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:28": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "expression": "mock_rank(mock_value)",
+        "field_ids": [
+          "mock_value"
+        ]
+      }
+    },
+    "audit:29": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "fingerprint": "3d8c30e3ce27cb2339c93b46037dd76c64ffe414f5709ef104e9cd5e1d2784bc"
+      }
+    },
+    "audit:30": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:31": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "budget_delta": {
+          "derived": true,
+          "reserved": 1,
+          "used": 0
+        }
+      }
+    },
+    "audit:32": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:33": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:34": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:35": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "message": "REMOTE_UNKNOWN: do not resubmit automatically",
+        "reason_code": "REMOTE_UNKNOWN"
+      }
+    },
+    "job:ca06f816-e98a-43c4-914e-9d36575b8316": {
+      "source_kind": "BUSINESS",
+      "summary": {
+        "attempt_count": 1,
+        "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+        "candidate_ref": "alpha:7f702dee-2ce8-421d-ad71-e3053d01a87b",
+        "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+        "remote_id_known": false,
+        "result_present": false,
+        "result_ref": null,
+        "status": "UNKNOWN"
+      }
+    },
+    "run:f6659eaa-d7b5-4158-95e1-9081afea37a1": {
+      "source_kind": "BUSINESS",
+      "summary": {
+        "budget_limit": 1,
+        "created_at": "2026-10-30T11:06:04.000Z",
+        "phase": "M1",
+        "reserved_budget": 1,
+        "status": "FAILED",
+        "used_budget": 0
+      }
+    },
+    "trace:35": {
+      "source_kind": "TRACE",
+      "summary": {
+        "truncated": false
+      }
+    },
+    "trace:36": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.075,
+        "truncated": false
+      }
+    },
+    "trace:37": {
+      "source_kind": "TRACE",
+      "summary": {
+        "truncated": false
+      }
+    },
+    "trace:38": {
+      "source_kind": "TRACE",
+      "summary": {
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      }
+    },
+    "trace:39": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.573,
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      }
+    },
+    "trace:40": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 4.717,
+        "truncated": false
+      }
+    },
+    "trace:41": {
+      "source_kind": "TRACE",
+      "summary": {
+        "attempt_number": 1,
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      }
+    },
+    "trace:42": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.615,
+        "error_class": "TimeoutError",
+        "reason_code": "NODE_EXCEPTION",
+        "truncated": false
+      }
+    }
+  },
+  "evidence_gaps": [],
+  "jobs": [
+    {
+      "attempt_count": 1,
+      "candidate_id": "7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "candidate_ref": "alpha:7f702dee-2ce8-421d-ad71-e3053d01a87b",
+      "job_id": "ca06f816-e98a-43c4-914e-9d36575b8316",
+      "remote_id_known": false,
+      "result_present": false,
+      "result_ref": null,
+      "source_ref": "job:ca06f816-e98a-43c4-914e-9d36575b8316",
+      "status": "UNKNOWN"
+    }
+  ],
+  "limitations": [
+    "M1 has no automatic reconciliation or recovery",
+    "Graph and budget deltas are derived; raw adapter data is omitted",
+    "Missing optional trace does not indicate execution failure",
+    "Pre-admission events may have null job/candidate IDs; no IDs are invented",
+    "Audit timestamps have second precision; cross-source timing ties are approximate"
+  ],
+  "nodes": [
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:27"
+      ],
+      "id": "run_admission",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:28"
+      ],
+      "id": "generator",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:29"
+      ],
+      "id": "validator",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:31"
+      ],
+      "id": "dedup_budget",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:30"
+      ],
+      "id": "queue",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:32",
+        "audit:33",
+        "audit:34",
+        "job:ca06f816-e98a-43c4-914e-9d36575b8316"
+      ],
+      "id": "submit",
+      "status": "UNKNOWN"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "poll",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "metrics_gate",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "result_persist",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:35",
+        "run:f6659eaa-d7b5-4158-95e1-9081afea37a1"
+      ],
+      "id": "run_terminal",
+      "status": "FAILED"
+    }
+  ],
+  "run": {
+    "budget": {
+      "reserved": 1,
+      "total": 1,
+      "used": 0
+    },
+    "config_summary": {
+      "delay": 2,
+      "instrument": "EQUITY",
+      "min_sharpe": 1.0,
+      "region": "GBR",
+      "universe": "TOP700"
+    },
+    "last_reason_code": "REMOTE_UNKNOWN",
+    "phase": "M1",
+    "source_ref": "run:f6659eaa-d7b5-4158-95e1-9081afea37a1",
+    "status": "FAILED"
+  },
+  "run_id": "f6659eaa-d7b5-4158-95e1-9081afea37a1",
+  "schema_version": 1,
+  "snapshot_generated_at": "2026-10-30T11:12:19.698Z",
+  "summary": "Run FAILED; 1 jobs; 2 anomalies. Derived observations are not root-cause diagnoses."
+}

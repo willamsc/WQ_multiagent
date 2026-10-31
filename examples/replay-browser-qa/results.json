@@ -1,0 +1,121 @@
+{
+  "result": "PASS",
+  "cases": [
+    {
+      "case": "success",
+      "frames": 29,
+      "checks": [
+        "initial-history-isolation",
+        "step-forward-back",
+        "event-click",
+        "node-inspector",
+        "evidence-inspector",
+        "filter-does-not-project",
+        "slider",
+        "speed-play-pause",
+        "anomaly-navigation",
+        "every-frame-python-js-parity",
+        "last-frame"
+      ],
+      "result": "PASS"
+    },
+    {
+      "case": "validation-rejected",
+      "frames": 9,
+      "checks": [
+        "initial-history-isolation",
+        "step-forward-back",
+        "event-click",
+        "node-inspector",
+        "evidence-inspector",
+        "filter-does-not-project",
+        "slider",
+        "speed-play-pause",
+        "anomaly-navigation",
+        "every-frame-python-js-parity",
+        "last-frame"
+      ],
+      "result": "PASS"
+    },
+    {
+      "case": "duplicate",
+      "frames": 11,
+      "checks": [
+        "initial-history-isolation",
+        "step-forward-back",
+        "event-click",
+        "node-inspector",
+        "evidence-inspector",
+        "filter-does-not-project",
+        "slider",
+        "speed-play-pause",
+        "anomaly-navigation",
+        "every-frame-python-js-parity",
+        "last-frame"
+      ],
+      "result": "PASS"
+    },
+    {
+      "case": "budget-exhausted",
+      "frames": 11,
+      "checks": [
+        "initial-history-isolation",
+        "step-forward-back",
+        "event-click",
+        "node-inspector",
+        "evidence-inspector",
+        "filter-does-not-project",
+        "slider",
+        "speed-play-pause",
+        "anomaly-navigation",
+        "every-frame-python-js-parity",
+        "last-frame"
+      ],
+      "result": "PASS"
+    },
+    {
+      "case": "unknown",
+      "frames": 17,
+      "checks": [
+        "initial-history-isolation",
+        "step-forward-back",
+        "event-click",
+        "node-inspector",
+        "evidence-inspector",
+        "filter-does-not-project",
+        "slider",
+        "speed-play-pause",
+        "anomaly-navigation",
+        "every-frame-python-js-parity",
+        "last-frame"
+      ],
+      "result": "PASS"
+    },
+    {
+      "case": "persistence-failure",
+      "frames": 30,
+      "checks": [
+        "initial-history-isolation",
+        "step-forward-back",
+        "event-click",
+        "node-inspector",
+        "evidence-inspector",
+        "filter-does-not-project",
+        "slider",
+        "speed-play-pause",
+        "anomaly-navigation",
+        "every-frame-python-js-parity",
+        "last-frame"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "xss": "PASS",
+  "external_requests": 0,
+  "dependencies_added": 0,
+  "browser": "chrome.exe",
+  "empty_history": "PASS",
+  "capacity_frames": 2000,
+  "capacity_last_seek_ms": 3.7,
+  "keyboard": "PASS"
+}

@@ -1,0 +1,268 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline';
+script-src 'sha256-mqhvsYZV3T9Ad3wA07H5YXM6hVafrO4ebVVnx1LiL7o='; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Alpha 研究执行回放</title><style>
+:root{font:15px/1.55 'Microsoft YaHei',system-ui,sans-serif;color:#e5edf8;background:#0d1420;
+--line:#304258;--muted:#9aafc8;--cyan:#66d6cd;--danger:#ffb1aa;--gold:#f1cd83}
+*{box-sizing:border-box}body{max-width:1500px;margin:auto;padding:24px 28px 130px}
+header,.panel,.notice{border:1px solid var(--line);border-radius:12px;background:#142133;padding:18px;margin-bottom:16px}
+header{border-top:3px solid var(--cyan)}h1{font-size:27px;margin:8px 0}h2{font-size:18px;margin:0 0 14px}
+h3{font-size:15px}.eyebrow,.muted,small{color:var(--muted)}.eyebrow{font-size:12px;letter-spacing:1px}
+.summary{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px}.notice{background:#28251c;border-color:#6d5d36;color:#f1dbb0}
+.notice:empty{display:none}.notice ul{margin:6px 0;padding-left:22px}.graph{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+button,select{font:inherit;border:1px solid #48627d;border-radius:7px;background:#1b2d43;color:#e5edf8;padding:8px 12px;cursor:pointer}
+button:hover{background:#29435e}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+button:disabled{opacity:.4;cursor:default}.node{min-width:118px;padding:10px;text-align:left;border-left:3px solid #61748a}
+.node strong,.node span,.node small{display:block}.node span{font-size:12px}.node small{font-size:11px}
+.node.COMPLETED{border-color:#48bda5}.node.FAILED,.node.REJECTED{border-color:var(--danger)}
+.node.UNKNOWN,.node.WAITING{border-color:var(--gold)}.node.NOT_OBSERVED_YET{opacity:.6;border-style:dashed}
+.node.current{outline:2px solid var(--cyan);background:#214052}.node.selected{box-shadow:inset 0 0 0 1px #b4d9ff}
+.arrow{color:#7792af}.workspace{display:grid;grid-template-columns:minmax(280px,36%) 1fr;gap:16px;align-items:start}
+.timeline{max-height:580px;overflow:auto;padding-right:3px}.event{display:block;width:100%;text-align:left;margin:6px 0;font-size:13px}
+.event strong,.event small{display:block}.event.current{border-color:var(--cyan);background:#214052}.event.error{border-left:3px solid var(--danger)}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.filters select{max-width:190px;font-size:13px}
+.badge{display:inline-block;border:1px solid #52677e;border-radius:5px;padding:1px 7px;font-size:12px;margin-right:6px}
+.uncertain{color:var(--gold)}.readout{padding:12px;background:#0e1a2a;border-radius:8px;margin:12px 0}
+.fields{display:grid;grid-template-columns:150px 1fr;gap:8px 14px}.fields dt{color:var(--muted)}.fields dd{margin:0;overflow-wrap:anywhere}
+pre{font:12px/1.6 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1928;padding:12px;border-radius:6px;max-height:340px;overflow:auto}
+details{border-top:1px solid var(--line);padding:10px 0;margin-top:10px}summary{cursor:pointer;color:#b6d1ed}
+.controls{position:fixed;bottom:0;left:0;right:0;background:#142133f5;border-top:1px solid #45617c;padding:14px max(20px,calc((100vw - 1444px)/2));backdrop-filter:blur(8px);z-index:10}
+.control-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.primary{background:#175c63;border-color:var(--cyan);min-width:86px}
+.scrubber{display:flex;gap:14px;align-items:center;margin-top:10px}.scrubber input{flex:1;accent-color:var(--cyan)}#frame-counter{min-width:120px;font-size:13px}
+#evidence button{margin:4px}.diff{color:#a4dccf}.error-text{color:var(--danger)}
+@media(max-width:850px){body{padding:12px 12px 190px}.workspace{grid-template-columns:1fr}.timeline{max-height:300px}
+.node{min-width:105px}.controls{padding:10px}.control-row{gap:5px}.control-row button{padding:7px 8px}.fields{grid-template-columns:110px 1fr}}
+</style></head><body><header><div class="eyebrow">历史事件回放 · 本地只读 · 模拟研究样例不代表真实绩效</div>
+<h1>Alpha 研究执行回放</h1><div id="run-id" class="muted"></div>
+<div class="summary"><strong id="run-state">历史研究状态：信息不足</strong><span id="job-state">历史任务状态：尚未观察到</span>
+<span id="budget-state">历史预算：信息不足</span></div>
+<p class="muted">尚未观察到 ≠ 实际尚未发生。此处按证据逐帧投影，最终查询快照在下方独立对照。</p></header>
+<div id="warnings" class="notice" role="status"></div>
+<section class="panel"><h2>研究工作流</h2><div id="graph" class="graph"></div>
+<p class="muted">箭头是预期拓扑，不代表已确认的跨源调用先后；高亮表示当前展示事件的节点。</p></section>
+<div class="workspace"><section class="panel"><h2>事件时间线</h2><div class="filters">
+<label><input id="errors-only" type="checkbox">仅看异常</label><label>节点 <select id="node-filter" aria-label="筛选时间线节点"><option value="">全部节点</option></select></label></div>
+<div id="timeline-note" class="muted"></div><div id="timeline" class="timeline"></div></section>
+<section class="panel"><h2 id="frame-title">初始视图</h2><div id="frame-meta"></div><p id="frame-description"></p>
+<div id="node-inspector" class="readout"></div><div id="payload"></div>
+<h3>本帧变化</h3><ul id="diff" class="diff"></ul>
+<h3>截至当前游标的异常与证据缺口</h3><ul id="anomalies"></ul><ul id="gaps"></ul>
+<h3>证据检查</h3><div id="evidence"></div><div id="evidence-preview"></div>
+<details><summary>技术详情：事件、状态和来源引用</summary><pre id="technical"></pre></details></section></div>
+<section class="panel"><details id="final-panel"><summary>最终查询快照与末帧对照（独立信息，不属于当前历史帧）</summary>
+<div id="final-summary"></div><p class="muted">最终记录只用于核对，不会补齐历史节点或预算。</p>
+<details><summary>最终查询快照技术详情</summary><pre id="final-technical"></pre></details></details></section>
+<div class="controls"><div class="control-row">
+<button id="home" aria-label="回到开头">回到开头</button><button id="prev" aria-label="上一步">上一步</button>
+<button id="play" class="primary" aria-label="播放或暂停" aria-pressed="false">播放</button>
+<button id="next" aria-label="下一步">下一步</button><button id="end" aria-label="跳到最后">最后</button>
+<label>播放速度 <select id="speed" aria-label="播放速度"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+<button id="anomaly-prev" aria-label="上一个异常">上一个异常</button><button id="anomaly-next" aria-label="下一个异常">下一个异常</button>
+<small>固定节奏演示，并非真实等待时间</small></div><div class="scrubber"><input id="cursor" type="range" min="0" value="0" aria-label="回放进度"><span id="frame-counter" aria-live="polite"></span></div></div>
+<noscript><p class="notice">需要启用浏览器本地 JavaScript 才能播放；不会连接网络。机器可读回放请查看同源 JSON 文件。</p></noscript>
+<script type="application/json" id="replay-data">{"evidence":{"audit:17":{"source_kind":"AUDIT","summary":{}},"audit:18":{"source_kind":"AUDIT","summary":{"expression":"mock_rank(mock_value)","field_ids":["mock_value"]}},"audit:19":{"source_kind":"AUDIT","summary":{"fingerprint":"4cc8e322aad92e79da7fe2fb2675266a7ab16010ad555bba7334724cadc95e95"}},"audit:20":{"source_kind":"AUDIT","summary":{"message":"DUPLICATE","reason_code":"DUPLICATE"}},"audit:21":{"source_kind":"AUDIT","summary":{"alpha_id":"3114b4cb-61ce-420b-b1cf-4cbcc423548e"}},"run:3538e4b8-3d47-4366-932e-5d32c092721e":{"source_kind":"BUSINESS","summary":{"budget_limit":1,"created_at":"2026-10-30T11:06:04.000Z","phase":"M1","reserved_budget":0,"status":"REJECTED","used_budget":0}},"trace:23":{"source_kind":"TRACE","summary":{"truncated":false}},"trace:24":{"source_kind":"TRACE","summary":{"duration_ms":0.069,"truncated":false}},"trace:25":{"source_kind":"TRACE","summary":{"truncated":false}},"trace:26":{"source_kind":"TRACE","summary":{"expression":"mock_rank(mock_value)","truncated":false}},"trace:27":{"source_kind":"TRACE","summary":{"duration_ms":0.484,"expression":"mock_rank(mock_value)","truncated":false}},"trace:28":{"source_kind":"TRACE","summary":{"duration_ms":5.776,"truncated":false}}},"final_comparison":[{"derived":true,"evidence_refs":["run:3538e4b8-3d47-4366-932e-5d32c092721e"],"final":"REJECTED","projected":"REJECTED","result":"MATCH","subject":"run"},{"derived":true,"evidence_refs":["run:3538e4b8-3d47-4366-932e-5d32c092721e"],"final":0,"projected":0,"result":"MATCH","subject":"budget:reserved"},{"derived":true,"evidence_refs":["run:3538e4b8-3d47-4366-932e-5d32c092721e"],"final":0,"projected":0,"result":"MATCH","subject":"budget:used"}],"final_snapshot":{"attempts":[],"jobs":[],"label_zh":"最终查询快照（不是历史帧）","run":{"budget":{"reserved":0,"total":1,"used":0},"config_summary":{"delay":1,"instrument":"EQUITY","min_sharpe":1.0,"region":"GBR","universe":"TOP700"},"last_reason_code":"DUPLICATE","phase":"M1","source_ref":"run:3538e4b8-3d47-4366-932e-5d32c092721e","status":"REJECTED"}},"frame_states":[{"delta":{"active_node":"run_admission","budget":{"basis":"INFERRED","inference_reason":"由 M1 v1 创建初值规则推导，预算总额未记录在审计中","last_delta":null,"refs":["audit:17"],"reserved":0,"total":null,"used":0},"node_states":{"run_admission":{"basis":"RECORDED","changed_at":1,"refs":["audit:17"],"source_kind":"AUDIT","state":"ACTIVE"}},"ordinal":1,"run":{"basis":"RECORDED","refs":["audit:17"],"state":"CREATED"}},"ordinal":1},{"delta":{"active_node":"generator","node_states":{"generator":{"basis":"RECORDED","changed_at":2,"refs":["audit:18"],"source_kind":"AUDIT","state":"COMPLETED"}},"ordinal":2,"transitions":[{"basis":"INFERRED","from":"run_admission","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["audit:18"],"to":"generator"}]},"ordinal":2},{"delta":{"active_node":"validator","node_states":{"validator":{"basis":"RECORDED","changed_at":3,"refs":["audit:19"],"source_kind":"AUDIT","state":"COMPLETED"}},"ordinal":3,"transitions":[{"basis":"INFERRED","from":"generator","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["audit:19"],"to":"validator"}]},"ordinal":3},{"delta":{"active_node":"run_terminal","anomalies_at_frame":[{"basis":"RECORDED","code":"DUPLICATE","evidence_refs":["audit:20"],"first_seen_ordinal":4,"node_id":"dedup_budget"}],"node_states":{"dedup_budget":{"basis":"RECORDED","changed_at":4,"refs":["audit:20"],"source_kind":"AUDIT","state":"REJECTED"},"run_admission":{"basis":"INFERRED","changed_at":4,"inference_reason":"研究拒绝审计表明此次候选未获接纳","refs":["audit:20"],"source_kind":"AUDIT","state":"REJECTED"},"run_terminal":{"basis":"RECORDED","changed_at":4,"refs":["audit:20"],"source_kind":"AUDIT","state":"REJECTED"}},"ordinal":4,"run":{"basis":"RECORDED","refs":["audit:20"],"state":"REJECTED"},"transitions":[{"basis":"INFERRED","from":"validator","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["audit:20"],"to":"run_terminal"}]},"ordinal":4},{"delta":{"active_node":"dedup_budget","node_states":{"dedup_budget":{"basis":"RECORDED","changed_at":5,"refs":["audit:21"],"source_kind":"AUDIT","state":"REJECTED"}},"ordinal":5,"transitions":[{"basis":"INFERRED","from":"run_terminal","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["audit:21"],"to":"dedup_budget"}]},"ordinal":5},{"delta":{"active_node":"generator","data_gaps":["诊断调用的结束不等同于业务状态迁移；没有调用配对标识，未进行开始/结束配对"],"ordinal":6,"transitions":[{"basis":"INFERRED","from":"dedup_budget","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["trace:23"],"to":"generator"}]},"ordinal":6},{"delta":{"ordinal":7,"transitions":[]},"ordinal":7},{"delta":{"active_node":"run_admission","node_states":{"run_admission":{"basis":"RECORDED","changed_at":8,"refs":["trace:25"],"source_kind":"TRACE","state":"ACTIVE"}},"ordinal":8,"transitions":[{"basis":"INFERRED","from":"generator","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["trace:25"],"to":"run_admission"}]},"ordinal":8},{"delta":{"active_node":"validator","ordinal":9,"transitions":[{"basis":"INFERRED","from":"run_admission","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["trace:26"],"to":"validator"}]},"ordinal":9},{"delta":{"ordinal":10,"transitions":[]},"ordinal":10},{"delta":{"active_node":"run_admission","node_states":{"run_admission":{"basis":"RECORDED","changed_at":11,"refs":["trace:28"],"source_kind":"TRACE","state":"COMPLETED"}},"ordinal":11,"transitions":[{"basis":"INFERRED","from":"validator","inference_reason":"仅为稳定展示次序，非确认的调用因果","refs":["trace:28"],"to":"run_admission"}]},"ordinal":11}],"frames":[{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"CREATED","evidence_level":"RECORDED","evidence_refs":["audit:17"],"frame_id":"frame:000001","label_zh":"研究已创建","node_id":"run_admission","occurred_at":"2026-10-30T11:06:04.000Z","order_quality":"TIE_UNCERTAIN","ordinal":1,"payload_summary":{},"schema_version":1,"source_kind":"AUDIT","source_sequence":17,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"second","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"GENERATED","evidence_level":"RECORDED","evidence_refs":["audit:18"],"frame_id":"frame:000002","label_zh":"候选已生成","node_id":"generator","occurred_at":"2026-10-30T11:06:04.000Z","order_quality":"TIE_UNCERTAIN","ordinal":2,"payload_summary":{"expression":"mock_rank(mock_value)","field_ids":["mock_value"]},"schema_version":1,"source_kind":"AUDIT","source_sequence":18,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"second","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"VALIDATED","evidence_level":"RECORDED","evidence_refs":["audit:19"],"frame_id":"frame:000003","label_zh":"校验通过","node_id":"validator","occurred_at":"2026-10-30T11:06:04.000Z","order_quality":"TIE_UNCERTAIN","ordinal":3,"payload_summary":{"fingerprint":"4cc8e322aad92e79da7fe2fb2675266a7ab16010ad555bba7334724cadc95e95"},"schema_version":1,"source_kind":"AUDIT","source_sequence":19,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"second","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"REJECTED","evidence_level":"RECORDED","evidence_refs":["audit:20"],"frame_id":"frame:000004","label_zh":"研究被拒绝","node_id":"run_terminal","occurred_at":"2026-10-30T11:06:04.000Z","order_quality":"TIE_UNCERTAIN","ordinal":4,"payload_summary":{"message":"DUPLICATE","reason_code":"DUPLICATE"},"schema_version":1,"source_kind":"AUDIT","source_sequence":20,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"second","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"DUPLICATE","evidence_level":"RECORDED","evidence_refs":["audit:21"],"frame_id":"frame:000005","label_zh":"重复候选被拒绝","node_id":"dedup_budget","occurred_at":"2026-10-30T11:06:04.000Z","order_quality":"TIE_UNCERTAIN","ordinal":5,"payload_summary":{"alpha_id":"3114b4cb-61ce-420b-b1cf-4cbcc423548e"},"schema_version":1,"source_kind":"AUDIT","source_sequence":21,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"second","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"NODE_STARTED","evidence_level":"RECORDED","evidence_refs":["trace:23"],"frame_id":"frame:000006","label_zh":"诊断：节点调用开始","node_id":"generator","occurred_at":"2026-10-30T11:06:04.857Z","order_quality":"TIE_UNCERTAIN","ordinal":6,"payload_summary":{"truncated":false},"schema_version":1,"source_kind":"TRACE","source_sequence":23,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"millisecond","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"NODE_COMPLETED","evidence_level":"RECORDED","evidence_refs":["trace:24"],"frame_id":"frame:000007","label_zh":"诊断：节点调用结束","node_id":"generator","occurred_at":"2026-10-30T11:06:04.858Z","order_quality":"TIE_UNCERTAIN","ordinal":7,"payload_summary":{"duration_ms":0.069,"truncated":false},"schema_version":1,"source_kind":"TRACE","source_sequence":24,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"millisecond","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"NODE_STARTED","evidence_level":"RECORDED","evidence_refs":["trace:25"],"frame_id":"frame:000008","label_zh":"诊断：节点调用开始","node_id":"run_admission","occurred_at":"2026-10-30T11:06:04.858Z","order_quality":"TIE_UNCERTAIN","ordinal":8,"payload_summary":{"truncated":false},"schema_version":1,"source_kind":"TRACE","source_sequence":25,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"millisecond","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"NODE_STARTED","evidence_level":"RECORDED","evidence_refs":["trace:26"],"frame_id":"frame:000009","label_zh":"诊断：节点调用开始","node_id":"validator","occurred_at":"2026-10-30T11:06:04.858Z","order_quality":"TIE_UNCERTAIN","ordinal":9,"payload_summary":{"expression":"mock_rank(mock_value)","truncated":false},"schema_version":1,"source_kind":"TRACE","source_sequence":26,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"millisecond","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"NODE_COMPLETED","evidence_level":"RECORDED","evidence_refs":["trace:27"],"frame_id":"frame:000010","label_zh":"诊断：节点调用结束","node_id":"validator","occurred_at":"2026-10-30T11:06:04.860Z","order_quality":"TIE_UNCERTAIN","ordinal":10,"payload_summary":{"duration_ms":0.484,"expression":"mock_rank(mock_value)","truncated":false},"schema_version":1,"source_kind":"TRACE","source_sequence":27,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"millisecond","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]},{"effect":"OBSERVE_RECORDED_EVENT","event_kind":"NODE_COMPLETED","evidence_level":"RECORDED","evidence_refs":["trace:28"],"frame_id":"frame:000011","label_zh":"诊断：节点调用结束","node_id":"run_admission","occurred_at":"2026-10-30T11:06:04.864Z","order_quality":"TIE_UNCERTAIN","ordinal":11,"payload_summary":{"duration_ms":5.776,"truncated":false},"schema_version":1,"source_kind":"TRACE","source_sequence":28,"subject":{"candidate_id":null,"job_id":null,"run_id":"3538e4b8-3d47-4366-932e-5d32c092721e"},"time_precision":"millisecond","warnings":["CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]}],"generated_at":"2026-10-31T09:40:55.991Z","initial_state":{"active_node":null,"anomalies_at_frame":[],"budget":{"basis":"UNKNOWN","last_delta":null,"refs":[],"reserved":null,"total":null,"used":null},"data_gaps":[],"jobs":{},"node_states":{"dedup_budget":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"generator":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"metrics_gate":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"poll":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"queue":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"result_persist":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"run_admission":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"run_terminal":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"submit":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"},"validator":{"basis":"UNKNOWN","changed_at":0,"refs":[],"source_kind":null,"state":"NOT_OBSERVED_YET"}},"ordinal":0,"run":{"basis":"UNKNOWN","refs":[],"state":"UNKNOWN"},"submit_intents":{},"transitions":[]},"limits":{"byte_limit":262144,"event_limit":200,"input_events":11,"omitted_prefix_events":0,"omitted_source_sequence_ranges":[],"payload_truncated":false,"read_limited":false,"truncated":false},"locale":"zh-CN","mode":"HISTORICAL_REPLAY","projection_encoding":"ROOT_REPLACEMENTS_AND_NODE_UPDATES_V1","run_id":"3538e4b8-3d47-4366-932e-5d32c092721e","schema_version":1,"topology":{"edges":[{"derived":true,"from":"run_admission","kind":"EXPECTED","to":"generator"},{"derived":true,"from":"generator","kind":"EXPECTED","to":"validator"},{"derived":true,"from":"validator","kind":"EXPECTED","to":"dedup_budget"},{"derived":true,"from":"dedup_budget","kind":"EXPECTED","to":"queue"},{"derived":true,"from":"queue","kind":"EXPECTED","to":"submit"},{"derived":true,"from":"submit","kind":"EXPECTED","to":"poll"},{"derived":true,"from":"poll","kind":"EXPECTED","to":"metrics_gate"},{"derived":true,"from":"metrics_gate","kind":"EXPECTED","to":"result_persist"},{"derived":true,"from":"result_persist","kind":"EXPECTED","to":"run_terminal"}],"nodes":[{"id":"run_admission","label_zh":"控制器与接纳"},{"id":"generator","label_zh":"候选生成"},{"id":"validator","label_zh":"表达式校验"},{"id":"dedup_budget","label_zh":"去重与预算"},{"id":"queue","label_zh":"任务队列"},{"id":"submit","label_zh":"提交模拟"},{"id":"poll","label_zh":"查询与读取结果"},{"id":"metrics_gate","label_zh":"指标门控"},{"id":"result_persist","label_zh":"结果保存"},{"id":"run_terminal","label_zh":"研究结束"}]},"warnings":["EVENT_PREFIX_NOT_COMMIT_SNAPSHOT","NO_SPAN_ID_NO_PAIRING","CROSS_SOURCE_SAME_SECOND_UNCERTAIN"]}</script><script>/* Offline presentation only: Python has already produced all business state deltas. */
+'use strict';
+(() => {
+  const data = JSON.parse(document.getElementById('replay-data').textContent);
+  const $ = id => document.getElementById(id);
+  const clone = value => JSON.parse(JSON.stringify(value));
+  const labels = Object.fromEntries(data.topology.nodes.map(n => [n.id, n.label_zh]));
+  const states = {NOT_OBSERVED_YET:'尚未观察到',ACTIVE:'进行中',COMPLETED:'已完成',REJECTED:'已拒绝',
+    FAILED:'失败',WAITING:'等待中',UNKNOWN:'信息不足／状态未知',CREATED:'已创建',RUNNING:'进行中',
+    PENDING:'待执行',RESERVED:'已预留',SUBMITTING:'提交中',SUBMITTED:'已确认回执',POLLING:'查询中'};
+  const basis = {RECORDED:'已记录',INFERRED:'推导',UNKNOWN:'信息不足'};
+  const warningText = {
+    EVENT_PREFIX_NOT_COMMIT_SNAPSHOT:'帧是历史事件前缀投影，不是每次事务提交的数据库截图。',
+    NO_SPAN_ID_NO_PAIRING:'历史诊断追踪没有调用配对标识；没有猜测开始／结束配对或补造耗时。',
+    CROSS_SOURCE_SAME_SECOND_UNCERTAIN:'审计只有秒级精度：同秒跨源事件只有稳定展示次序，真实先后不确定。',
+    NO_OPTIONAL_TRACE:'没有可用的诊断追踪：可能未开启、已过期或进程结束前缓冲丢失，无法复原详细调用。',
+    EXPORT_TRUNCATED:'部分事件未导出：当前回放不完整。被省略的前缀不会被填成成功。',
+    READ_LIMIT_REACHED:'历史读取达到上限，可能缺少更早的证据。',
+    SOURCE_TIME_REGRESSION:'来源内部时间戳发生回退，仍按该来源的记录序号展示。',
+    NO_REPLAY_EVENTS:'没有足够的历史事件，无法逐步回放。可查看独立最终查询快照。',
+    MISSING_EVIDENCE:'证据缺失：该事件不能用于确认历史状态。',
+    PAYLOAD_TRUNCATED:'原始摘要已截断，未记录的部分无法回放。',
+    MALFORMED_TRACE_SKIPPED:'已跳过格式异常的诊断追踪，未将其当作成功。',
+    MALFORMED_AUDIT_PAYLOAD:'审计内容格式异常，相关解释或输入输出可能缺失。',
+    INVALID_EVENT_SKIPPED:'已跳过不能识别的事件。',INVALID_EVENT_PAYLOAD:'事件摘要格式异常。',
+    DUPLICATE_SOURCE_IGNORED:'重复来源只保留一次，没有重复计数。',
+    UNKNOWN_JOB_PHASE:'缺少更早的任务阶段证据，不能判断异常发生在提交还是查询阶段。',
+    SYNTHETIC_QA_FIXTURE:'这是人工构造的交互／容量测试夹具，不代表真实研究历史。'};
+  const reasons = {VALIDATION:'本地表达式校验未通过',DUPLICATE:'已有相同表达式和设置的记录',
+    BUDGET_EXHAUSTED:'预算不足，未提交模拟',REMOTE_UNKNOWN:'远程执行结果未知，不能确认是否被接受',
+    REMOTE_FAILED:'模拟执行返回失败',RATE_LIMIT:'限流尝试次数耗尽',PERSISTENCE_FAILURE:'结果写入失败，需人工检查',
+    INTERNAL:'内部处理未完成',NODE_EXCEPTION:'诊断记录了节点调用异常',
+    MOCK_GATE_PASS:'达到本地模拟门槛',MOCK_GATE_FAIL:'未达到本地模拟门槛',
+    TRACE_NODE_FAILURE:'诊断调用曾发生异常，不代表研究最终失败',RATE_LIMIT_RECORDED:'已记录一次限流',
+    RATE_LIMIT_EXHAUSTED:'限流尝试次数耗尽',REMOTE_EXECUTION_UNKNOWN:'远程执行未知，不会自动重发',
+    RUN_JOB_STATE_MISMATCH_MANUAL_REVIEW:'研究失败，但任务仍处于查询状态；仅供人工核查，不自动恢复'};
+  const textState = value => states[value] || '信息不足';
+  const warn = code => warningText[code.split(':')[0]] || '未知提示代码：' + code;
+  const reason = code => reasons[code] || '未知错误代码：' + code;
+  const publicText = value => String(value).replaceAll('[REDACTED]', '[已脱敏]').replaceAll('[truncated]', '[已截断]');
+  const empty = element => element.replaceChildren();
+  function element(tag, text, className) {
+    const e = document.createElement(tag);
+    if (text !== undefined) e.textContent = publicText(text);
+    if (className) e.className = className;
+    return e;
+  }
+  function list(target, items, fallback) {
+    empty($(target));
+    (items.length ? items : [fallback]).forEach(text => $(target).append(element('li', text)));
+  }
+  let cursor = 0, timer = null, playing = false, selected = null;
+  const count = data.frames.length;
+  function stateAt(position) {
+    const state = clone(data.initial_state);
+    for (let i=0; i<position; i++) {
+      for (const [key,value] of Object.entries(data.frame_states[i].delta)) {
+        if (key === 'node_states') Object.assign(state.node_states, clone(value));
+        else state[key] = clone(value);
+      }
+    }
+    return state;
+  }
+  const isError = f => ['FAILED','UNKNOWN','REJECTED','DUPLICATE','BUDGET_EXHAUSTED','RATE_LIMIT','NODE_FAILED'].includes(f.event_kind);
+  const abnormal = data.frames.filter(isError).map(f => f.ordinal);
+  function pause() {playing=false; if(timer!==null)clearTimeout(timer); timer=null; updateControls();}
+  function updateControls() {
+    $('play').textContent = playing ? '暂停' : cursor===count && count ? '重播' : '播放';
+    $('play').setAttribute('aria-pressed', String(playing));
+    $('play').disabled = count===0;
+    $('home').disabled = $('prev').disabled = cursor===0;
+    $('next').disabled = $('end').disabled = cursor===count;
+    $('anomaly-prev').disabled = !abnormal.some(n=>n<cursor);
+    $('anomaly-next').disabled = !abnormal.some(n=>n>cursor);
+    $('cursor').value=String(cursor);
+    $('frame-counter').textContent='帧 '+cursor+' / '+count;
+  }
+  function schedule() {
+    if(timer!==null)clearTimeout(timer);
+    if(!playing)return;
+    timer=setTimeout(()=>{
+      timer=null;
+      if(!playing)return;
+      if(cursor<count){cursor++;selected=null;render();}
+      if(cursor===count)pause();else schedule();
+    },800/Number($('speed').value));
+  }
+  function seek(position) {pause();cursor=Math.min(count,Math.max(0,Number(position)));selected=null;render();}
+  function toggle() {
+    if(playing){pause();return;}
+    if(!count)return;
+    if(cursor===count){cursor=0;selected=null;render();}
+    playing=true;updateControls();schedule();
+  }
+  function evidencePreview(ref) {
+    empty($('evidence-preview'));
+    const record=data.evidence[ref];
+    $('evidence-preview').append(element('p',record && !record.missing_reason ? '来源摘要（已脱敏）' : '证据缺失，无法确认原始内容'));
+    const details=element('details');details.open=true;
+    details.append(element('summary','证据技术详情'),element('pre',JSON.stringify({source_ref:ref,...record},null,2)));
+    $('evidence-preview').append(details);
+  }
+  function renderPayload(frame) {
+    empty($('payload'));
+    if(!frame){$('payload').append(element('p','尚未选择历史事件；输入输出未采集时无法回放。','muted'));return;}
+    const p=frame.payload_summary, fields=element('dl',undefined,'fields');
+    const add=(label,value)=>{fields.append(element('dt',label),element('dd',value));};
+    if(p.expression!==undefined)add('表达式摘要',p.expression===null?'未采集，无法回放':p.expression);
+    if(p.field_ids)add('涉及字段',Array.isArray(p.field_ids)&&p.field_ids.every(v=>typeof v==='string')?p.field_ids.join('、'):'字段摘要格式异常，无法复原');
+    if(p.reason_code)add('原因说明',reason(p.reason_code));
+    if(p.duration_ms!==undefined)add('记录的单条调用耗时',p.duration_ms+' 毫秒（未猜测配对）');
+    if(p.status)add('记录的返回状态',textState(p.status));
+    if(p.gate)add('记录的门控结论',p.gate==='PASS'?'达到示例门槛':'未达到示例门槛');
+    if(p.attempt_number!==undefined)add('本次提交尝试序号',p.attempt_number);
+    if(p.budget_delta)add('按规则推导的预算变化','预留 '+p.budget_delta.reserved+'；已消耗 '+p.budget_delta.used);
+    if(!fields.children.length)add('输入输出','未采集，无法回放；可展开技术详情核对已有字段。');
+    $('payload').append(fields);
+  }
+  function renderTimeline() {
+    empty($('timeline'));
+    const visible=data.frames.filter(f=>(!$('errors-only').checked || isError(f)) &&
+      (!$('node-filter').value || f.node_id===$('node-filter').value));
+    const found=visible.findIndex(f=>f.ordinal>=cursor), start=Math.max(0,(found<0?visible.length:found)-35);
+    const windowed=visible.slice(start,start+100);
+    $('timeline-note').textContent=visible.length ? '列表筛选不改变投影；当前显示 '+windowed.length+' / '+visible.length+' 条。' : '没有符合条件的历史事件。';
+    for(const f of windowed){
+      const b=element('button',undefined,'event'+(f.ordinal===cursor?' current':'')+(isError(f)?' error':''));
+      b.dataset.ordinal=String(f.ordinal);b.setAttribute('aria-label','跳到第 '+f.ordinal+' 帧：'+f.label_zh);
+      b.append(element('strong',f.ordinal+' · '+f.label_zh),element('small',labels[f.node_id]+' · '+(f.occurred_at||'时间未记录')+'（UTC）'));
+      if(f.order_quality==='TIE_UNCERTAIN')b.append(element('small','同秒跨源顺序不确定','uncertain'));
+      b.addEventListener('click',()=>seek(f.ordinal));$('timeline').append(b);
+    }
+  }
+  function render() {
+    const state=stateAt(cursor), frame=cursor?data.frames[cursor-1]:null;
+    const nodeId=selected || state.active_node;
+    $('run-state').textContent='历史研究状态：'+textState(state.run.state)+'（'+basis[state.run.basis]+'）';
+    const jobs=Object.values(state.jobs);
+    $('job-state').textContent='历史任务状态：'+(jobs.length?jobs.map(j=>textState(j.state)).join('、'):'尚未观察到');
+    $('budget-state').textContent='历史预算：预留 '+(state.budget.reserved??'未知')+' / 已消耗 '+(state.budget.used??'未知')+'（'+basis[state.budget.basis]+'；总额未知）';
+    empty($('graph'));
+    data.topology.nodes.forEach((n,index)=>{
+      if(index)$('graph').append(element('span','→','arrow'));
+      const s=state.node_states[n.id], b=element('button',undefined,'node '+s.state+(n.id===state.active_node?' current':'')+(n.id===nodeId?' selected':''));
+      b.dataset.node=n.id;b.setAttribute('aria-label','检查节点：'+n.label_zh);
+      if(n.id===state.active_node)b.setAttribute('aria-current','step');
+      b.append(element('strong',n.label_zh),element('span',textState(s.state)),element('small',basis[s.basis]));
+      b.addEventListener('click',()=>{selected=n.id;render();});$('graph').append(b);
+    });
+    $('frame-title').textContent=frame?'第 '+cursor+' 帧 · '+frame.label_zh:'初始视图';
+    empty($('frame-meta'));
+    if(frame){
+      $('frame-meta').append(element('span',basis[frame.evidence_level],'badge'),
+        element('span',frame.time_precision==='second'?'秒级时间':frame.time_precision==='millisecond'?'毫秒级时间':'时间未记录','badge'),
+        element('span',frame.order_quality==='TIE_UNCERTAIN'?'跨源顺序不确定':'仅确认来源内部顺序','badge uncertain'));
+    }
+    $('frame-description').textContent=frame ? (frame.occurred_at||'未记录时间')+'（UTC）。这是观测事件，不是重新执行。' :
+      count?'尚未应用任何历史事件。所有节点均为“尚未观察到”，不代表实际尚未发生。':'没有足够的历史事件，无法逐步回放。';
+    empty($('node-inspector'));
+    const node=nodeId?state.node_states[nodeId]:null;
+    $('node-inspector').append(element('strong',nodeId?'检查节点：'+labels[nodeId]:'请选择节点或历史事件'));
+    if(node)$('node-inspector').append(element('p',textState(node.state)+' · '+basis[node.basis]),
+      element('p',node.inference_reason || (node.refs.length?'最近变更在第 '+node.changed_at+' 帧。':'未采集，无法回放。'),'muted'));
+    renderPayload(frame);
+    const delta=cursor?data.frame_states[cursor-1].delta:{};
+    const changes=Object.entries(delta.node_states||{}).map(([id,value])=>labels[id]+' → '+textState(value.state)+'（'+basis[value.basis]+'）');
+    if(delta.run)changes.push('研究状态 → '+textState(delta.run.state));
+    if(delta.jobs)changes.push('任务状态证据已更新');
+    if(delta.budget)changes.push('预算推导已更新；不是历史预算原始快照');
+    list('diff',changes,'本帧没有可确认的业务状态变化。');
+    list('anomalies',state.anomalies_at_frame.map(a=>'第 '+a.first_seen_ordinal+' 帧：'+reason(a.code)),'截至当前游标未观察到异常。');
+    list('gaps',[...state.data_gaps,...(frame?frame.warnings.map(warn):[])],'当前帧没有额外证据缺口提示。');
+    empty($('evidence'));empty($('evidence-preview'));
+    const refs=[...new Set([...(frame?frame.evidence_refs:[]),...(node?node.refs:[])])];
+    refs.forEach((ref,i)=>{const b=element('button','查看证据 '+(i+1));b.dataset.ref=ref;
+      b.addEventListener('click',()=>evidencePreview(ref));$('evidence').append(b);});
+    if(!refs.length)$('evidence').append(element('p','尚未观察到可引用的历史证据。','muted'));
+    $('technical').textContent=JSON.stringify({frame,node_id:nodeId,node_state:node,projected_state:state},null,2);
+    renderTimeline();updateControls();
+  }
+  $('run-id').textContent='研究标识：'+data.run_id+'　／　回放仅涵盖已导出的证据';
+  list('warnings',data.warnings.map(warn),'没有额外导出警告。');
+  for(const n of data.topology.nodes){const o=element('option',n.label_zh);o.value=n.id;$('node-filter').append(o);}
+  $('cursor').max=String(count);
+  $('home').addEventListener('click',()=>seek(0));$('prev').addEventListener('click',()=>seek(cursor-1));
+  $('next').addEventListener('click',()=>seek(cursor+1));$('end').addEventListener('click',()=>seek(count));
+  $('play').addEventListener('click',toggle);$('cursor').addEventListener('input',e=>seek(e.target.value));
+  $('speed').addEventListener('change',()=>{if(playing)schedule();});
+  $('anomaly-prev').addEventListener('click',()=>{const n=abnormal.filter(n=>n<cursor).at(-1);if(n!==undefined)seek(n);});
+  $('anomaly-next').addEventListener('click',()=>{const n=abnormal.find(n=>n>cursor);if(n!==undefined)seek(n);});
+  $('errors-only').addEventListener('change',renderTimeline);$('node-filter').addEventListener('change',renderTimeline);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});window.addEventListener('pagehide',pause);
+  document.addEventListener('keydown',e=>{if(['INPUT','SELECT','BUTTON'].includes(e.target.tagName))return;
+    if(e.code==='Space'){e.preventDefault();toggle();}else if(e.key==='ArrowRight')seek(cursor+1);
+    else if(e.key==='ArrowLeft')seek(cursor-1);else if(e.key==='Home')seek(0);else if(e.key==='End')seek(count);});
+  const final=data.final_snapshot;
+  $('final-summary').append(element('p','最终研究状态：'+textState(final.run.status)+'；最终任务状态：'+
+    (final.jobs.map(j=>textState(j.status)).join('、')||'无任务')),
+    element('p','最终预算总额 '+final.run.budget.total+'，预留 '+final.run.budget.reserved+'，已消耗 '+final.run.budget.used+'。'));
+  $('final-technical').textContent=JSON.stringify({final_snapshot:final,final_comparison:data.final_comparison,limits:data.limits},null,2);
+  window.replayStudio=Object.freeze({seek,stateAt,getState:()=>stateAt(cursor),getCursor:()=>cursor,
+    isPlaying:()=>playing,getFrameCount:()=>count,getBundle:()=>clone(data),pause});
+  render();
+})();
+</script></body></html>

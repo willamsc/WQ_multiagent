@@ -1,0 +1,16 @@
+.venv/
+.uv-cache/
+__pycache__/
+.pytest_cache/
+.pytest-tmp/
+pytest-cache-files-*/
+.ruff_cache/
+*.sqlite3*
+.env
+.env.*
+!.env.example
+.observatory-browser/
+# Local source data; keep the forum archive out of the code repository.
+/WQP_CommunityState_20261027_223334.json
+# Reproducible browser stress/security fixtures; retain QA results and screenshots.
+/examples/replay-browser-qa/*-fixture.html

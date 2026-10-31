@@ -1,0 +1,439 @@
+{
+  "anomalies": [
+    {
+      "code": "VALIDATION_REJECTED",
+      "derived": true,
+      "evidence_refs": [
+        "audit:16"
+      ],
+      "node": "validator",
+      "node_status": "REJECTED",
+      "severity": "warning"
+    }
+  ],
+  "attempts": [],
+  "edges": [
+    {
+      "derived": true,
+      "from": "run_admission",
+      "kind": "expected",
+      "to": "generator"
+    },
+    {
+      "derived": true,
+      "from": "generator",
+      "kind": "expected",
+      "to": "validator"
+    },
+    {
+      "derived": true,
+      "from": "validator",
+      "kind": "expected",
+      "to": "dedup_budget"
+    },
+    {
+      "derived": true,
+      "from": "dedup_budget",
+      "kind": "expected",
+      "to": "queue"
+    },
+    {
+      "derived": true,
+      "from": "queue",
+      "kind": "expected",
+      "to": "submit"
+    },
+    {
+      "derived": true,
+      "from": "submit",
+      "kind": "expected",
+      "to": "poll"
+    },
+    {
+      "derived": true,
+      "from": "poll",
+      "kind": "expected",
+      "to": "metrics_gate"
+    },
+    {
+      "derived": true,
+      "from": "metrics_gate",
+      "kind": "expected",
+      "to": "result_persist"
+    },
+    {
+      "derived": true,
+      "from": "result_persist",
+      "kind": "expected",
+      "to": "run_terminal"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:14",
+        "audit:15"
+      ],
+      "from": "run_admission",
+      "kind": "observed",
+      "to": "generator"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:15",
+        "audit:16"
+      ],
+      "from": "generator",
+      "kind": "observed",
+      "to": "validator"
+    }
+  ],
+  "events": [
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:14",
+      "event_type": "CREATED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {},
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 14,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:14"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:15",
+      "event_type": "GENERATED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "expression": "wrong(mock_value)",
+        "field_ids": [
+          "mock_value"
+        ]
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 15,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:15"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:16",
+      "event_type": "REJECTED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "REJECTED",
+      "payload": {
+        "message": "VALIDATION: unsupported operator or signature",
+        "reason_code": "VALIDATION"
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 16,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:16"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:17",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.820Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "truncated": false
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 17,
+      "source_kind": "TRACE",
+      "source_ref": "trace:17"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:18",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.820Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 0.069,
+        "truncated": false
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 18,
+      "source_kind": "TRACE",
+      "source_ref": "trace:18"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:19",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.820Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "truncated": false
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 19,
+      "source_kind": "TRACE",
+      "source_ref": "trace:19"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:20",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.821Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "expression": "wrong(mock_value)",
+        "truncated": false
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 20,
+      "source_kind": "TRACE",
+      "source_ref": "trace:20"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:21",
+      "event_type": "NODE_FAILED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.822Z",
+      "outcome": "FAILED",
+      "payload": {
+        "duration_ms": 0.405,
+        "error_class": "ValidationError",
+        "reason_code": "NODE_EXCEPTION",
+        "truncated": false
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 21,
+      "source_kind": "TRACE",
+      "source_ref": "trace:21"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:22",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.827Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 4.96,
+        "truncated": false
+      },
+      "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+      "schema_version": 1,
+      "sequence": 22,
+      "source_kind": "TRACE",
+      "source_ref": "trace:22"
+    }
+  ],
+  "evidence": {
+    "audit:14": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:15": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "expression": "wrong(mock_value)",
+        "field_ids": [
+          "mock_value"
+        ]
+      }
+    },
+    "audit:16": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "message": "VALIDATION: unsupported operator or signature",
+        "reason_code": "VALIDATION"
+      }
+    },
+    "run:bf5baac4-385f-4c97-9c6d-64d5a6fbcba3": {
+      "source_kind": "BUSINESS",
+      "summary": {
+        "budget_limit": 1,
+        "created_at": "2026-10-30T11:06:04.000Z",
+        "phase": "M1",
+        "reserved_budget": 0,
+        "status": "REJECTED",
+        "used_budget": 0
+      }
+    },
+    "trace:17": {
+      "source_kind": "TRACE",
+      "summary": {
+        "truncated": false
+      }
+    },
+    "trace:18": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.069,
+        "truncated": false
+      }
+    },
+    "trace:19": {
+      "source_kind": "TRACE",
+      "summary": {
+        "truncated": false
+      }
+    },
+    "trace:20": {
+      "source_kind": "TRACE",
+      "summary": {
+        "expression": "wrong(mock_value)",
+        "truncated": false
+      }
+    },
+    "trace:21": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.405,
+        "error_class": "ValidationError",
+        "reason_code": "NODE_EXCEPTION",
+        "truncated": false
+      }
+    },
+    "trace:22": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 4.96,
+        "truncated": false
+      }
+    }
+  },
+  "evidence_gaps": [],
+  "jobs": [],
+  "limitations": [
+    "M1 has no automatic reconciliation or recovery",
+    "Graph and budget deltas are derived; raw adapter data is omitted",
+    "Missing optional trace does not indicate execution failure",
+    "Pre-admission events may have null job/candidate IDs; no IDs are invented",
+    "Audit timestamps have second precision; cross-source timing ties are approximate"
+  ],
+  "nodes": [
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:14"
+      ],
+      "id": "run_admission",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:15"
+      ],
+      "id": "generator",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:16"
+      ],
+      "id": "validator",
+      "status": "REJECTED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "dedup_budget",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "queue",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "submit",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "poll",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "metrics_gate",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "result_persist",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "run:bf5baac4-385f-4c97-9c6d-64d5a6fbcba3"
+      ],
+      "id": "run_terminal",
+      "status": "REJECTED"
+    }
+  ],
+  "run": {
+    "budget": {
+      "reserved": 0,
+      "total": 1,
+      "used": 0
+    },
+    "config_summary": {
+      "delay": 1,
+      "instrument": "EQUITY",
+      "min_sharpe": 1.0,
+      "region": "GBR",
+      "universe": "TOP700"
+    },
+    "last_reason_code": "VALIDATION",
+    "phase": "M1",
+    "source_ref": "run:bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+    "status": "REJECTED"
+  },
+  "run_id": "bf5baac4-385f-4c97-9c6d-64d5a6fbcba3",
+  "schema_version": 1,
+  "snapshot_generated_at": "2026-10-30T11:12:19.615Z",
+  "summary": "Run REJECTED; 0 jobs; 1 anomalies. Derived observations are not root-cause diagnoses."
+}

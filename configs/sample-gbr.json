@@ -1,0 +1,12 @@
+{
+  "region": "GBR",
+  "universe": "TOP700",
+  "delay": 1,
+  "instrument": "EQUITY",
+  "budget_limit": 1,
+  "min_sharpe": 1.0,
+  "fields": {"mock_value": "MATRIX"},
+  "operators": {"mock_rank": 1},
+  "expression": "mock_rank(mock_value)",
+  "mock_scenario": "success"
+}

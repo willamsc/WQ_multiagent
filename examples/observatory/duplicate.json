@@ -1,0 +1,508 @@
+{
+  "anomalies": [
+    {
+      "code": "DUPLICATE",
+      "derived": true,
+      "evidence_refs": [
+        "audit:21"
+      ],
+      "node": "dedup_budget",
+      "node_status": "REJECTED",
+      "severity": "warning"
+    }
+  ],
+  "attempts": [],
+  "edges": [
+    {
+      "derived": true,
+      "from": "run_admission",
+      "kind": "expected",
+      "to": "generator"
+    },
+    {
+      "derived": true,
+      "from": "generator",
+      "kind": "expected",
+      "to": "validator"
+    },
+    {
+      "derived": true,
+      "from": "validator",
+      "kind": "expected",
+      "to": "dedup_budget"
+    },
+    {
+      "derived": true,
+      "from": "dedup_budget",
+      "kind": "expected",
+      "to": "queue"
+    },
+    {
+      "derived": true,
+      "from": "queue",
+      "kind": "expected",
+      "to": "submit"
+    },
+    {
+      "derived": true,
+      "from": "submit",
+      "kind": "expected",
+      "to": "poll"
+    },
+    {
+      "derived": true,
+      "from": "poll",
+      "kind": "expected",
+      "to": "metrics_gate"
+    },
+    {
+      "derived": true,
+      "from": "metrics_gate",
+      "kind": "expected",
+      "to": "result_persist"
+    },
+    {
+      "derived": true,
+      "from": "result_persist",
+      "kind": "expected",
+      "to": "run_terminal"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:17",
+        "audit:18"
+      ],
+      "from": "run_admission",
+      "kind": "observed",
+      "to": "generator"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:18",
+        "audit:19"
+      ],
+      "from": "generator",
+      "kind": "observed",
+      "to": "validator"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:19",
+        "audit:20"
+      ],
+      "from": "validator",
+      "kind": "observed",
+      "to": "run_terminal"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:20",
+        "audit:21"
+      ],
+      "from": "run_terminal",
+      "kind": "observed",
+      "to": "dedup_budget"
+    }
+  ],
+  "events": [
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:17",
+      "event_type": "CREATED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {},
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 17,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:17"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:18",
+      "event_type": "GENERATED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "expression": "mock_rank(mock_value)",
+        "field_ids": [
+          "mock_value"
+        ]
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 18,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:18"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:19",
+      "event_type": "VALIDATED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "fingerprint": "4cc8e322aad92e79da7fe2fb2675266a7ab16010ad555bba7334724cadc95e95"
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 19,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:19"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:20",
+      "event_type": "REJECTED",
+      "job_id": null,
+      "node": "run_terminal",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "REJECTED",
+      "payload": {
+        "message": "DUPLICATE",
+        "reason_code": "DUPLICATE"
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 20,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:20"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "audit:21",
+      "event_type": "DUPLICATE",
+      "job_id": null,
+      "node": "dedup_budget",
+      "occurred_at": "2026-10-30T11:06:04.000Z",
+      "outcome": "REJECTED",
+      "payload": {
+        "alpha_id": "3114b4cb-61ce-420b-b1cf-4cbcc423548e"
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 21,
+      "source_kind": "AUDIT",
+      "source_ref": "audit:21"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:23",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.857Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "truncated": false
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 23,
+      "source_kind": "TRACE",
+      "source_ref": "trace:23"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:24",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "generator",
+      "occurred_at": "2026-10-30T11:06:04.858Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 0.069,
+        "truncated": false
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 24,
+      "source_kind": "TRACE",
+      "source_ref": "trace:24"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:25",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.858Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "truncated": false
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 25,
+      "source_kind": "TRACE",
+      "source_ref": "trace:25"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:26",
+      "event_type": "NODE_STARTED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.858Z",
+      "outcome": "RUNNING",
+      "payload": {
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 26,
+      "source_kind": "TRACE",
+      "source_ref": "trace:26"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:27",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "validator",
+      "occurred_at": "2026-10-30T11:06:04.860Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 0.484,
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 27,
+      "source_kind": "TRACE",
+      "source_ref": "trace:27"
+    },
+    {
+      "candidate_id": null,
+      "derived": false,
+      "event_id": "trace:28",
+      "event_type": "NODE_COMPLETED",
+      "job_id": null,
+      "node": "run_admission",
+      "occurred_at": "2026-10-30T11:06:04.864Z",
+      "outcome": "COMPLETED",
+      "payload": {
+        "duration_ms": 5.776,
+        "truncated": false
+      },
+      "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+      "schema_version": 1,
+      "sequence": 28,
+      "source_kind": "TRACE",
+      "source_ref": "trace:28"
+    }
+  ],
+  "evidence": {
+    "audit:17": {
+      "source_kind": "AUDIT",
+      "summary": {}
+    },
+    "audit:18": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "expression": "mock_rank(mock_value)",
+        "field_ids": [
+          "mock_value"
+        ]
+      }
+    },
+    "audit:19": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "fingerprint": "4cc8e322aad92e79da7fe2fb2675266a7ab16010ad555bba7334724cadc95e95"
+      }
+    },
+    "audit:20": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "message": "DUPLICATE",
+        "reason_code": "DUPLICATE"
+      }
+    },
+    "audit:21": {
+      "source_kind": "AUDIT",
+      "summary": {
+        "alpha_id": "3114b4cb-61ce-420b-b1cf-4cbcc423548e"
+      }
+    },
+    "run:3538e4b8-3d47-4366-932e-5d32c092721e": {
+      "source_kind": "BUSINESS",
+      "summary": {
+        "budget_limit": 1,
+        "created_at": "2026-10-30T11:06:04.000Z",
+        "phase": "M1",
+        "reserved_budget": 0,
+        "status": "REJECTED",
+        "used_budget": 0
+      }
+    },
+    "trace:23": {
+      "source_kind": "TRACE",
+      "summary": {
+        "truncated": false
+      }
+    },
+    "trace:24": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.069,
+        "truncated": false
+      }
+    },
+    "trace:25": {
+      "source_kind": "TRACE",
+      "summary": {
+        "truncated": false
+      }
+    },
+    "trace:26": {
+      "source_kind": "TRACE",
+      "summary": {
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      }
+    },
+    "trace:27": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 0.484,
+        "expression": "mock_rank(mock_value)",
+        "truncated": false
+      }
+    },
+    "trace:28": {
+      "source_kind": "TRACE",
+      "summary": {
+        "duration_ms": 5.776,
+        "truncated": false
+      }
+    }
+  },
+  "evidence_gaps": [],
+  "jobs": [],
+  "limitations": [
+    "M1 has no automatic reconciliation or recovery",
+    "Graph and budget deltas are derived; raw adapter data is omitted",
+    "Missing optional trace does not indicate execution failure",
+    "Pre-admission events may have null job/candidate IDs; no IDs are invented",
+    "Audit timestamps have second precision; cross-source timing ties are approximate"
+  ],
+  "nodes": [
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:17"
+      ],
+      "id": "run_admission",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:18"
+      ],
+      "id": "generator",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:19"
+      ],
+      "id": "validator",
+      "status": "COMPLETED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:21"
+      ],
+      "id": "dedup_budget",
+      "status": "REJECTED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "queue",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "submit",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "poll",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "metrics_gate",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [],
+      "id": "result_persist",
+      "status": "NOT_VISITED"
+    },
+    {
+      "derived": true,
+      "evidence_refs": [
+        "audit:20",
+        "run:3538e4b8-3d47-4366-932e-5d32c092721e"
+      ],
+      "id": "run_terminal",
+      "status": "REJECTED"
+    }
+  ],
+  "run": {
+    "budget": {
+      "reserved": 0,
+      "total": 1,
+      "used": 0
+    },
+    "config_summary": {
+      "delay": 1,
+      "instrument": "EQUITY",
+      "min_sharpe": 1.0,
+      "region": "GBR",
+      "universe": "TOP700"
+    },
+    "last_reason_code": "DUPLICATE",
+    "phase": "M1",
+    "source_ref": "run:3538e4b8-3d47-4366-932e-5d32c092721e",
+    "status": "REJECTED"
+  },
+  "run_id": "3538e4b8-3d47-4366-932e-5d32c092721e",
+  "schema_version": 1,
+  "snapshot_generated_at": "2026-10-30T11:12:19.640Z",
+  "summary": "Run REJECTED; 0 jobs; 1 anomalies. Derived observations are not root-cause diagnoses."
+}
