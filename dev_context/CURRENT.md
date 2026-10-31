@@ -4,8 +4,9 @@
 
 - 已完成 M1、正确性审查、M1-O、M1-O.1；最近一次全量验证为 **117 passed**，
   `ruff check .` 和 `ruff format --check .` 通过。新增上下文文档没有改动业务源码。
-- 当前任务：首次提交到 `https://github.com/willamsc/WQ_multiagent.git`，以及建立
-  分层开发记录。推送状态见 [005 详情](changes/005-github-context/DETAILS.md)。
+- 已将项目首次推送到 `https://github.com/willamsc/WQ_multiagent.git` 的 main 分支，
+  初始代码提交 `150b992`；分层开发记录已建立。后续状态记录提交以 `git log` 和
+  远程 main 为准。同步详情见 [005](changes/005-github-context/DETAILS.md)。
 - 核心 schema v1；可选 Trace 为独立附加表。业务图、预算、指纹和提交规则不随
   Viewer/Replay 改变。数据库仍是业务事实来源。
 - 回放基于已记录事件；最终快照不注入历史帧；跨源同秒顺序不确定，没有 span ID
