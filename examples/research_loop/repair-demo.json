@@ -1,0 +1,1025 @@
+{
+  "budget": {
+    "agent_call_limit": 8,
+    "agent_calls": 5,
+    "evidence_limit": 2,
+    "evidence_requests": 0
+  },
+  "current_version": 2,
+  "events": [
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "STUDY_CREATED",
+      "payload": {
+        "signal_id": "sample-main-signal"
+      },
+      "sequence": 1,
+      "source_ref": "research_audit:1"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_AUTHORIZED",
+      "payload": {
+        "context_digest": "sha256:7d4ae9a10272d622e76da445b126a21a4115a063210ab6e37fd5ecdc7cdbb836",
+        "phase": "generate",
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd",
+        "version": 1
+      },
+      "sequence": 2,
+      "source_ref": "research_audit:2"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_EXECUTION",
+      "payload": {
+        "attempt_id": "1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd"
+      },
+      "sequence": 3,
+      "source_ref": "research_audit:3"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "SIGNAL_VERSION_CREATED",
+      "payload": {
+        "attempt_id": "1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd",
+        "version": 1
+      },
+      "sequence": 4,
+      "source_ref": "research_audit:4"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_AUTHORIZED",
+      "payload": {
+        "context_digest": "sha256:34abea97f89d1ceb45b444c03c3d5486e4c6573f513ccba6dd06d68ff2c46f44",
+        "phase": "independent",
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474",
+        "version": 1
+      },
+      "sequence": 5,
+      "source_ref": "research_audit:5"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_EXECUTION",
+      "payload": {
+        "attempt_id": "c5cbd853-9489-404b-a6e2-7b1c536f280f",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474"
+      },
+      "sequence": 6,
+      "source_ref": "research_audit:6"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "REVIEW_LOCKED",
+      "payload": {
+        "attempt_id": "c5cbd853-9489-404b-a6e2-7b1c536f280f",
+        "phase": "independent",
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474",
+        "verdict": "FAIL",
+        "version": 1
+      },
+      "sequence": 7,
+      "source_ref": "research_audit:7"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "RESEARCH_REVIEW_FAILED",
+      "payload": {
+        "version": 1
+      },
+      "sequence": 8,
+      "source_ref": "research_audit:8"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "REPAIR_AUTHORIZED",
+      "payload": {
+        "from_version": 1,
+        "to_version": 2
+      },
+      "sequence": 9,
+      "source_ref": "research_audit:9"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_AUTHORIZED",
+      "payload": {
+        "context_digest": "sha256:f8df1c4c89f52268c73d191106e17062ce0f28043b797f191631000239a55762",
+        "phase": "generate",
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+        "version": 2
+      },
+      "sequence": 10,
+      "source_ref": "research_audit:10"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_EXECUTION",
+      "payload": {
+        "attempt_id": "00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c"
+      },
+      "sequence": 11,
+      "source_ref": "research_audit:11"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "SIGNAL_VERSION_CREATED",
+      "payload": {
+        "attempt_id": "00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+        "version": 2
+      },
+      "sequence": 12,
+      "source_ref": "research_audit:12"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_AUTHORIZED",
+      "payload": {
+        "context_digest": "sha256:f867d51487494d245040eab6ac2d9997c3c6423c6e7ca90ed0500d62bed8820a",
+        "phase": "independent",
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+        "version": 2
+      },
+      "sequence": 13,
+      "source_ref": "research_audit:13"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_EXECUTION",
+      "payload": {
+        "attempt_id": "20e18c03-08f8-4fd6-890c-1c25c941a434",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8"
+      },
+      "sequence": 14,
+      "source_ref": "research_audit:14"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "REVIEW_LOCKED",
+      "payload": {
+        "attempt_id": "20e18c03-08f8-4fd6-890c-1c25c941a434",
+        "phase": "independent",
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+        "verdict": "PASS",
+        "version": 2
+      },
+      "sequence": 15,
+      "source_ref": "research_audit:15"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_AUTHORIZED",
+      "payload": {
+        "context_digest": "sha256:ce515b25a9823809d76920732e1da8cb1ffe4147185d20edbf1c720154724c85",
+        "phase": "regression-1",
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+        "version": 2
+      },
+      "sequence": 16,
+      "source_ref": "research_audit:16"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "AGENT_EXECUTION",
+      "payload": {
+        "attempt_id": "51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11"
+      },
+      "sequence": 17,
+      "source_ref": "research_audit:17"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "REVIEW_LOCKED",
+      "payload": {
+        "attempt_id": "51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+        "phase": "regression-1",
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+        "verdict": "PASS",
+        "version": 2
+      },
+      "sequence": 18,
+      "source_ref": "research_audit:18"
+    },
+    {
+      "at": "2026-11-01 08:33:51",
+      "event_type": "APPROVED",
+      "payload": {
+        "reason_code": "ALL_REQUIRED_REVIEWS_PASS"
+      },
+      "sequence": 19,
+      "source_ref": "research_audit:19"
+    }
+  ],
+  "evidence": {
+    "agent_attempt:00b0b00c-4826-4443-a3cd-d4dc8f96cb55": {
+      "source_kind": "AGENT_ATTEMPT",
+      "summary": {
+        "backend": "research_mock_generator",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+        "safe_error_code": null
+      }
+    },
+    "agent_attempt:1f927daa-2d56-4b23-a17e-fc1c9aca3a54": {
+      "source_kind": "AGENT_ATTEMPT",
+      "summary": {
+        "backend": "research_mock_generator",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+        "safe_error_code": null
+      }
+    },
+    "agent_attempt:20e18c03-08f8-4fd6-890c-1c25c941a434": {
+      "source_kind": "AGENT_ATTEMPT",
+      "summary": {
+        "backend": "research_mock_critic",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:20e18c03-08f8-4fd6-890c-1c25c941a434",
+        "safe_error_code": null
+      }
+    },
+    "agent_attempt:51de9d8a-4971-45ed-850a-5bbd0b1f4d82": {
+      "source_kind": "AGENT_ATTEMPT",
+      "summary": {
+        "backend": "research_mock_critic",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+        "safe_error_code": null
+      }
+    },
+    "agent_attempt:c5cbd853-9489-404b-a6e2-7b1c536f280f": {
+      "source_kind": "AGENT_ATTEMPT",
+      "summary": {
+        "backend": "research_mock_critic",
+        "execution_status": "SUCCEEDED",
+        "result_ref": "agent_result:c5cbd853-9489-404b-a6e2-7b1c536f280f",
+        "safe_error_code": null
+      }
+    },
+    "agent_result:00b0b00c-4826-4443-a3cd-d4dc8f96cb55": {
+      "source_kind": "AGENT_VALIDATED_RESULT",
+      "summary": {
+        "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "expression_suggestions": [
+          "mock_value"
+        ],
+        "field_ids": [
+          "mock_value"
+        ],
+        "mechanism": "仅用于契约验证，不是研究结论；正式提案版本 2",
+        "risks": [
+          "未经实证验证"
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2
+      }
+    },
+    "agent_result:1f927daa-2d56-4b23-a17e-fc1c9aca3a54": {
+      "source_kind": "AGENT_VALIDATED_RESULT",
+      "summary": {
+        "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "expression_suggestions": [
+          "mock_value"
+        ],
+        "field_ids": [
+          "mock_value"
+        ],
+        "mechanism": "仅用于契约验证，不是研究结论；正式提案版本 1",
+        "risks": [
+          "未经实证验证"
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 1
+      }
+    },
+    "agent_result:20e18c03-08f8-4fd6-890c-1c25c941a434": {
+      "source_kind": "AGENT_VALIDATED_RESULT",
+      "summary": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2,
+        "verdict": "PASS"
+      }
+    },
+    "agent_result:51de9d8a-4971-45ed-850a-5bbd0b1f4d82": {
+      "source_kind": "AGENT_VALIDATED_RESULT",
+      "summary": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2,
+        "verdict": "PASS"
+      }
+    },
+    "agent_result:c5cbd853-9489-404b-a6e2-7b1c536f280f": {
+      "source_kind": "AGENT_VALIDATED_RESULT",
+      "summary": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [
+          {
+            "category": "mechanism",
+            "description": "离线夹具缺陷，不是实际研究判断",
+            "evidence_refs": [
+              "e:fixture"
+            ],
+            "id": "finding-1",
+            "severity": "major"
+          }
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 1,
+        "verdict": "FAIL"
+      }
+    },
+    "agent_task:23ba822c-10ff-4607-af1e-dd0177e345dd": {
+      "source_kind": "AGENT_TASK",
+      "summary": {
+        "allowed_evidence_scopes": [
+          "field_metadata",
+          "provided_evidence"
+        ],
+        "context_digest": "sha256:7d4ae9a10272d622e76da445b126a21a4115a063210ab6e37fd5ecdc7cdbb836",
+        "context_version": "m2b-generate",
+        "required_capabilities": [
+          "bounded_execution",
+          "fresh_session",
+          "scoped_context",
+          "structured_result"
+        ],
+        "resource_limits": {
+          "max_attempts": 1,
+          "max_evidence_requests": 0,
+          "max_output_bytes": 65536,
+          "timeout_seconds": 1
+        },
+        "result_schema": "main_signal_proposal_v1",
+        "role": "generator",
+        "schema_version": 1,
+        "subject": {
+          "signal_id": "sample-main-signal",
+          "signal_version": 1
+        },
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd"
+      }
+    },
+    "agent_task:2eb6279e-4148-4adb-a54b-3e036edc6474": {
+      "source_kind": "AGENT_TASK",
+      "summary": {
+        "allowed_evidence_scopes": [
+          "field_metadata",
+          "provided_evidence"
+        ],
+        "context_digest": "sha256:34abea97f89d1ceb45b444c03c3d5486e4c6573f513ccba6dd06d68ff2c46f44",
+        "context_version": "m2b-independent",
+        "required_capabilities": [
+          "bounded_execution",
+          "fresh_session",
+          "scoped_context",
+          "structured_result"
+        ],
+        "resource_limits": {
+          "max_attempts": 1,
+          "max_evidence_requests": 0,
+          "max_output_bytes": 65536,
+          "timeout_seconds": 1
+        },
+        "result_schema": "review_result_v1",
+        "role": "critic",
+        "schema_version": 1,
+        "subject": {
+          "signal_id": "sample-main-signal",
+          "signal_version": 1
+        },
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474"
+      }
+    },
+    "agent_task:d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c": {
+      "source_kind": "AGENT_TASK",
+      "summary": {
+        "allowed_evidence_scopes": [
+          "field_metadata",
+          "provided_evidence"
+        ],
+        "context_digest": "sha256:f8df1c4c89f52268c73d191106e17062ce0f28043b797f191631000239a55762",
+        "context_version": "m2b-generate",
+        "required_capabilities": [
+          "bounded_execution",
+          "fresh_session",
+          "scoped_context",
+          "structured_result"
+        ],
+        "resource_limits": {
+          "max_attempts": 1,
+          "max_evidence_requests": 0,
+          "max_output_bytes": 65536,
+          "timeout_seconds": 1
+        },
+        "result_schema": "main_signal_proposal_v1",
+        "role": "generator",
+        "schema_version": 1,
+        "subject": {
+          "signal_id": "sample-main-signal",
+          "signal_version": 2
+        },
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c"
+      }
+    },
+    "agent_task:d9f3e128-2391-4b4d-8d0a-5907c5ba0d11": {
+      "source_kind": "AGENT_TASK",
+      "summary": {
+        "allowed_evidence_scopes": [
+          "field_metadata",
+          "provided_evidence"
+        ],
+        "context_digest": "sha256:ce515b25a9823809d76920732e1da8cb1ffe4147185d20edbf1c720154724c85",
+        "context_version": "m2b-regression-1",
+        "required_capabilities": [
+          "bounded_execution",
+          "fresh_session",
+          "scoped_context",
+          "structured_result"
+        ],
+        "resource_limits": {
+          "max_attempts": 1,
+          "max_evidence_requests": 0,
+          "max_output_bytes": 65536,
+          "timeout_seconds": 1
+        },
+        "result_schema": "review_result_v1",
+        "role": "critic",
+        "schema_version": 1,
+        "subject": {
+          "signal_id": "sample-main-signal",
+          "signal_version": 2
+        },
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11"
+      }
+    },
+    "agent_task:dbcb37a3-8af7-48b8-9760-7a35a3550ca8": {
+      "source_kind": "AGENT_TASK",
+      "summary": {
+        "allowed_evidence_scopes": [
+          "field_metadata",
+          "provided_evidence"
+        ],
+        "context_digest": "sha256:f867d51487494d245040eab6ac2d9997c3c6423c6e7ca90ed0500d62bed8820a",
+        "context_version": "m2b-independent",
+        "required_capabilities": [
+          "bounded_execution",
+          "fresh_session",
+          "scoped_context",
+          "structured_result"
+        ],
+        "resource_limits": {
+          "max_attempts": 1,
+          "max_evidence_requests": 0,
+          "max_output_bytes": 65536,
+          "timeout_seconds": 1
+        },
+        "result_schema": "review_result_v1",
+        "role": "critic",
+        "schema_version": 1,
+        "subject": {
+          "signal_id": "sample-main-signal",
+          "signal_version": 2
+        },
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8"
+      }
+    },
+    "e:fixture": {
+      "source_kind": "APPROVED_INPUT_NOT_INDEPENDENTLY_VERIFIED",
+      "summary": {
+        "ref": "e:fixture",
+        "scope": "provided_evidence",
+        "summary": "合成证据，不支持任何真实收益结论"
+      }
+    },
+    "research_audit:1": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "signal_id": "sample-main-signal"
+      }
+    },
+    "research_audit:10": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "context_digest": "sha256:f8df1c4c89f52268c73d191106e17062ce0f28043b797f191631000239a55762",
+        "phase": "generate",
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+        "version": 2
+      }
+    },
+    "research_audit:11": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c"
+      }
+    },
+    "research_audit:12": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+        "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+        "version": 2
+      }
+    },
+    "research_audit:13": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "context_digest": "sha256:f867d51487494d245040eab6ac2d9997c3c6423c6e7ca90ed0500d62bed8820a",
+        "phase": "independent",
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+        "version": 2
+      }
+    },
+    "research_audit:14": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "20e18c03-08f8-4fd6-890c-1c25c941a434",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8"
+      }
+    },
+    "research_audit:15": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "20e18c03-08f8-4fd6-890c-1c25c941a434",
+        "phase": "independent",
+        "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+        "verdict": "PASS",
+        "version": 2
+      }
+    },
+    "research_audit:16": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "context_digest": "sha256:ce515b25a9823809d76920732e1da8cb1ffe4147185d20edbf1c720154724c85",
+        "phase": "regression-1",
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+        "version": 2
+      }
+    },
+    "research_audit:17": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11"
+      }
+    },
+    "research_audit:18": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+        "phase": "regression-1",
+        "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+        "verdict": "PASS",
+        "version": 2
+      }
+    },
+    "research_audit:19": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "reason_code": "ALL_REQUIRED_REVIEWS_PASS"
+      }
+    },
+    "research_audit:2": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "context_digest": "sha256:7d4ae9a10272d622e76da445b126a21a4115a063210ab6e37fd5ecdc7cdbb836",
+        "phase": "generate",
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd",
+        "version": 1
+      }
+    },
+    "research_audit:3": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd"
+      }
+    },
+    "research_audit:4": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+        "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd",
+        "version": 1
+      }
+    },
+    "research_audit:5": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "context_digest": "sha256:34abea97f89d1ceb45b444c03c3d5486e4c6573f513ccba6dd06d68ff2c46f44",
+        "phase": "independent",
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474",
+        "version": 1
+      }
+    },
+    "research_audit:6": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "c5cbd853-9489-404b-a6e2-7b1c536f280f",
+        "execution_status": "SUCCEEDED",
+        "safe_error_code": null,
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474"
+      }
+    },
+    "research_audit:7": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "attempt_id": "c5cbd853-9489-404b-a6e2-7b1c536f280f",
+        "phase": "independent",
+        "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474",
+        "verdict": "FAIL",
+        "version": 1
+      }
+    },
+    "research_audit:8": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "version": 1
+      }
+    },
+    "research_audit:9": {
+      "source_kind": "RESEARCH_AUDIT",
+      "summary": {
+        "from_version": 1,
+        "to_version": 2
+      }
+    },
+    "review:b88b20f9-332e-40a9-9b35-e93f7f849e33:v1:independent": {
+      "source_kind": "LOCKED_REVIEW",
+      "summary": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [
+          {
+            "category": "mechanism",
+            "description": "离线夹具缺陷，不是实际研究判断",
+            "evidence_refs": [
+              "e:fixture"
+            ],
+            "id": "finding-1",
+            "severity": "major"
+          }
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 1,
+        "verdict": "FAIL"
+      }
+    },
+    "review:b88b20f9-332e-40a9-9b35-e93f7f849e33:v2:independent": {
+      "source_kind": "LOCKED_REVIEW",
+      "summary": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2,
+        "verdict": "PASS"
+      }
+    },
+    "review:b88b20f9-332e-40a9-9b35-e93f7f849e33:v2:regression-1": {
+      "source_kind": "LOCKED_REVIEW",
+      "summary": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2,
+        "verdict": "PASS"
+      }
+    },
+    "signal:b88b20f9-332e-40a9-9b35-e93f7f849e33:v1": {
+      "source_kind": "SIGNAL_VERSION",
+      "summary": {
+        "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "expression_suggestions": [
+          "mock_value"
+        ],
+        "field_ids": [
+          "mock_value"
+        ],
+        "mechanism": "仅用于契约验证，不是研究结论；正式提案版本 1",
+        "risks": [
+          "未经实证验证"
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 1
+      }
+    },
+    "signal:b88b20f9-332e-40a9-9b35-e93f7f849e33:v2": {
+      "source_kind": "SIGNAL_VERSION",
+      "summary": {
+        "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "expression_suggestions": [
+          "mock_value"
+        ],
+        "field_ids": [
+          "mock_value"
+        ],
+        "mechanism": "仅用于契约验证，不是研究结论；正式提案版本 2",
+        "risks": [
+          "未经实证验证"
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2
+      }
+    },
+    "study:b88b20f9-332e-40a9-9b35-e93f7f849e33": {
+      "source_kind": "RESEARCH_STUDY",
+      "summary": {
+        "policy": {
+          "max_agent_calls": 8,
+          "max_evidence_requests": 2,
+          "max_repairs": 1,
+          "operators": {
+            "rank": 1
+          },
+          "timeout_seconds": 1,
+          "total_timeout_seconds": 30
+        },
+        "reason_code": "ALL_REQUIRED_REVIEWS_PASS",
+        "routing": {
+          "critic": "research_mock_critic",
+          "generator": "research_mock_generator"
+        },
+        "signal_id": "sample-main-signal",
+        "status": "APPROVED"
+      }
+    }
+  },
+  "evidence_requests": [],
+  "limitations": [
+    "PASS is not proof of economic validity",
+    "Approved input evidence is not independently verified",
+    "No automatic study resume or backend switching",
+    "No new Replay nodes; no simulation calls"
+  ],
+  "namespace": "M2B_RESEARCH",
+  "reason_code": "ALL_REQUIRED_REVIEWS_PASS",
+  "reviews": [
+    {
+      "attempt_id": "c5cbd853-9489-404b-a6e2-7b1c536f280f",
+      "phase": "independent",
+      "review": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [
+          {
+            "category": "mechanism",
+            "description": "离线夹具缺陷，不是实际研究判断",
+            "evidence_refs": [
+              "e:fixture"
+            ],
+            "id": "finding-1",
+            "severity": "major"
+          }
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 1,
+        "verdict": "FAIL"
+      },
+      "source_ref": "review:b88b20f9-332e-40a9-9b35-e93f7f849e33:v1:independent",
+      "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474",
+      "version": 1
+    },
+    {
+      "attempt_id": "20e18c03-08f8-4fd6-890c-1c25c941a434",
+      "phase": "independent",
+      "review": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2,
+        "verdict": "PASS"
+      },
+      "source_ref": "review:b88b20f9-332e-40a9-9b35-e93f7f849e33:v2:independent",
+      "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+      "version": 2
+    },
+    {
+      "attempt_id": "51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+      "phase": "regression-1",
+      "review": {
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "findings": [],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2,
+        "verdict": "PASS"
+      },
+      "source_ref": "review:b88b20f9-332e-40a9-9b35-e93f7f849e33:v2:regression-1",
+      "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+      "version": 2
+    }
+  ],
+  "schema_version": 1,
+  "signal_id": "sample-main-signal",
+  "simulation_budget": "NOT_ACCESSED",
+  "source_ref": "study:b88b20f9-332e-40a9-9b35-e93f7f849e33",
+  "status": "APPROVED",
+  "study_id": "b88b20f9-332e-40a9-9b35-e93f7f849e33",
+  "tasks": [
+    {
+      "attempts": [
+        {
+          "attempt_id": "1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+          "backend": "research_mock_generator",
+          "execution_status": "SUCCEEDED",
+          "result_ref": "agent_result:1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+          "safe_error_code": null,
+          "source_ref": "agent_attempt:1f927daa-2d56-4b23-a17e-fc1c9aca3a54"
+        }
+      ],
+      "phase": "generate",
+      "source_ref": "agent_task:23ba822c-10ff-4607-af1e-dd0177e345dd",
+      "status": "COMPLETED",
+      "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd",
+      "version": 1
+    },
+    {
+      "attempts": [
+        {
+          "attempt_id": "c5cbd853-9489-404b-a6e2-7b1c536f280f",
+          "backend": "research_mock_critic",
+          "execution_status": "SUCCEEDED",
+          "result_ref": "agent_result:c5cbd853-9489-404b-a6e2-7b1c536f280f",
+          "safe_error_code": null,
+          "source_ref": "agent_attempt:c5cbd853-9489-404b-a6e2-7b1c536f280f"
+        }
+      ],
+      "phase": "independent",
+      "source_ref": "agent_task:2eb6279e-4148-4adb-a54b-3e036edc6474",
+      "status": "COMPLETED",
+      "task_id": "2eb6279e-4148-4adb-a54b-3e036edc6474",
+      "version": 1
+    },
+    {
+      "attempts": [
+        {
+          "attempt_id": "00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+          "backend": "research_mock_generator",
+          "execution_status": "SUCCEEDED",
+          "result_ref": "agent_result:00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+          "safe_error_code": null,
+          "source_ref": "agent_attempt:00b0b00c-4826-4443-a3cd-d4dc8f96cb55"
+        }
+      ],
+      "phase": "generate",
+      "source_ref": "agent_task:d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+      "status": "COMPLETED",
+      "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+      "version": 2
+    },
+    {
+      "attempts": [
+        {
+          "attempt_id": "20e18c03-08f8-4fd6-890c-1c25c941a434",
+          "backend": "research_mock_critic",
+          "execution_status": "SUCCEEDED",
+          "result_ref": "agent_result:20e18c03-08f8-4fd6-890c-1c25c941a434",
+          "safe_error_code": null,
+          "source_ref": "agent_attempt:20e18c03-08f8-4fd6-890c-1c25c941a434"
+        }
+      ],
+      "phase": "independent",
+      "source_ref": "agent_task:dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+      "status": "COMPLETED",
+      "task_id": "dbcb37a3-8af7-48b8-9760-7a35a3550ca8",
+      "version": 2
+    },
+    {
+      "attempts": [
+        {
+          "attempt_id": "51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+          "backend": "research_mock_critic",
+          "execution_status": "SUCCEEDED",
+          "result_ref": "agent_result:51de9d8a-4971-45ed-850a-5bbd0b1f4d82",
+          "safe_error_code": null,
+          "source_ref": "agent_attempt:51de9d8a-4971-45ed-850a-5bbd0b1f4d82"
+        }
+      ],
+      "phase": "regression-1",
+      "source_ref": "agent_task:d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+      "status": "COMPLETED",
+      "task_id": "d9f3e128-2391-4b4d-8d0a-5907c5ba0d11",
+      "version": 2
+    }
+  ],
+  "versions": [
+    {
+      "attempt_id": "1f927daa-2d56-4b23-a17e-fc1c9aca3a54",
+      "proposal": {
+        "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "expression_suggestions": [
+          "mock_value"
+        ],
+        "field_ids": [
+          "mock_value"
+        ],
+        "mechanism": "仅用于契约验证，不是研究结论；正式提案版本 1",
+        "risks": [
+          "未经实证验证"
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 1
+      },
+      "source_ref": "signal:b88b20f9-332e-40a9-9b35-e93f7f849e33:v1",
+      "task_id": "23ba822c-10ff-4607-af1e-dd0177e345dd",
+      "version": 1
+    },
+    {
+      "attempt_id": "00b0b00c-4826-4443-a3cd-d4dc8f96cb55",
+      "proposal": {
+        "economic_hypothesis": "离线模拟假设，尚未验证预测能力",
+        "evidence_refs": [
+          "e:fixture"
+        ],
+        "expression_suggestions": [
+          "mock_value"
+        ],
+        "field_ids": [
+          "mock_value"
+        ],
+        "mechanism": "仅用于契约验证，不是研究结论；正式提案版本 2",
+        "risks": [
+          "未经实证验证"
+        ],
+        "schema_version": 1,
+        "signal_id": "sample-main-signal",
+        "signal_version": 2
+      },
+      "source_ref": "signal:b88b20f9-332e-40a9-9b35-e93f7f849e33:v2",
+      "task_id": "d6f51cb9-1a5b-4a5f-8af9-02efdd2b7b8c",
+      "version": 2
+    }
+  ]
+}

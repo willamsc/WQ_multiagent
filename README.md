@@ -3,6 +3,28 @@
 开发上下文入口：[简短变更索引](dev_context/README.md)、[当前状态](dev_context/CURRENT.md)。
 后续开发先按需加载这些记录，完整技术说明继续保留在 docs。
 
+## M2-B 主信号生成—审查闭环
+
+新增独立 study run/show、observe study，复用 M2-A Runtime，提供不可变版本、独立 Critic、
+有限修复、二阶段复审、调用预算与研究审计，不自动触发 WQ 回测。
+
+```powershell
+uv run --offline alpha-platform study run --input configs/study-mock.json --ledger study-demo.sqlite3 --scenario repair_pass
+uv run --offline alpha-platform observe study --ledger study-demo.sqlite3 --study-id STUDY_ID
+```
+
+同一账本不能重开已存在信号身份或通过换后端改判。Mock 演示包含 2 版、3 审查、5 调用；
+真实 Codex 仍受隔离门控阻断，Claude Code 未安装。见 [使用说明](docs/M2B_RESEARCH_LOOP.md)、
+[正式交付](docs/M2B_DELIVERY.md)、[源码基线](docs/M2B_BASELINE_AUDIT.md)。
+
+## M1.5 人工 WQ 回测与批次调度
+
+新增独立 wq probe/run，支持多个 Alpha × 并发批次、滚动补位、独立预算与审计。
+8×6、8×10 由离线协议夹具验证，不代表已验证真实账号额度或吞吐量。
+认证/真实回测状态见 [交付记录](docs/M15_DELIVERY.md)，
+凭证配置、单任务联调和批量命令见 [使用说明](docs/M15_WQ_SIMULATION.md)。
+旧 Mock 命令不变，不自动执行真实回测。
+
 ## M2-A 多 Agent 兼容基础层
 
 新增独立的 Role → Runtime → Backend 接口、版本化任务、受限 Context 和 Agent 账本。
@@ -16,7 +38,7 @@ uv run --offline alpha-platform agent show --task-id sample-critic-v1 --ledger a
 ```
 
 Codex CLI 本地安装/登录预检已验证，但宿主隔离未验证，真实调用保持 UNSUPPORTED；
-Claude Code 未安装，DSH 仅预留注册槽。未启动 M2-B～D、真实回测或 RAG。
+Claude Code 未安装，DSH 仅预留注册槽。M2-A 不包含 M2-B～D、真实回测或 RAG。
 详见 [操作说明](docs/AGENT_INTEROP.md)、[基线](docs/M2A_BASELINE_AUDIT.md)和
 [交付报告](docs/M2A_DELIVERY.md)。
 
@@ -50,7 +72,7 @@ uv run --offline ruff check .
 UNKNOWN 请求不会自动重发，保留预算预留等待人工检查。
 
 架构取舍和已知限制见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
-尚未实现 live、完整 FastExpr、Critic、RAG、自动中断恢复及 M2～M4。
+完整 FastExpr、真实 Agent 自动研究、RAG、自动中断恢复及 M2-C～M4 尚未实现。
 
 ## M1-O 研究观察器
 

@@ -228,5 +228,6 @@ class Controller:
                 if attempt == 1:
                     repo.finish(run_id, "FAILED", "INTERNAL: result persistence failed")
                     return repo.report(run_id)
-        repo.finish(run_id, "COMPLETED", f"MOCK_GATE_{gate}; not a platform submission check")
+        label = getattr(config, "gate_label", "MOCK_GATE")
+        repo.finish(run_id, "COMPLETED", f"{label}_{gate}; not a platform submission check")
         return repo.report(run_id)

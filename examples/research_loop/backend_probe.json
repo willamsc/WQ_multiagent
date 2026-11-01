@@ -1,0 +1,9 @@
+{
+  "observed_date": "2026-11-01",
+  "command": "uv run --offline alpha-platform agent probe --backend all",
+  "research_calls": 0,
+  "backends": [
+    {"backend": "codex", "installed": true, "cli_version": "0.164.0-alpha.11.1", "local_auth_status": "AUTHENTICATED_LOCAL", "structured_flag_observed": true, "network_credential_validity": "NOT_TESTED", "host_isolation": "UNVERIFIED", "research_task_execution": "NOT_RUN", "status": "UNSUPPORTED", "safe_error_code": "HOST_ISOLATION_UNVERIFIED"},
+    {"backend": "claude_code", "installed": false, "local_auth_status": "NOT_CHECKED", "network_credential_validity": "NOT_TESTED", "host_isolation": "UNVERIFIED", "research_task_execution": "NOT_RUN", "status": "UNSUPPORTED", "safe_error_code": "BACKEND_NOT_INSTALLED"}
+  ]
+}

@@ -14,7 +14,9 @@ from .contracts import (
     TaskEnvelope,
     canonical,
     identifier,
+    object_fields,
     parse_proposal,
+    parse_review,
     strict_json,
     text,
 )
@@ -27,7 +29,7 @@ def approved_text(value):
         for key, part in value.items():
             approved_text(key)
             approved_text(part)
-    elif isinstance(value, list):
+    elif isinstance(value, (list, tuple)):
         for part in value:
             approved_text(part)
 
@@ -117,6 +119,31 @@ class ContextBuilder:
             proposal = parse_proposal(formal, subject, clean_fields, refs)
             # Only the formal proposal is shared; private drafts/reviews/session histories are not.
             content["proposal"] = asdict(proposal)
+        if "workflow" in sources:
+            workflow = strict_json(canonical(sources["workflow"]), 32768)
+            object_fields(workflow, ("phase", "previous_proposal", "review", "changes"))
+            expected = "repair" if role == Role.GENERATOR else "regression"
+            if workflow["phase"] != expected or subject.signal_version < 2:
+                raise ContractError("WORKFLOW_CONTEXT_PHASE_INVALID")
+            old = workflow["previous_proposal"]
+            if not isinstance(old, dict) or type(old.get("signal_version")) is not int:
+                raise ContractError("WORKFLOW_PREVIOUS_VERSION_INVALID")
+            if not 1 <= old["signal_version"] < subject.signal_version:
+                raise ContractError("WORKFLOW_PREVIOUS_VERSION_INVALID")
+            old_subject = Subject(subject.signal_id, old["signal_version"])
+            previous = parse_proposal(old, old_subject, clean_fields, refs)
+            review = parse_review(workflow["review"], old_subject, refs)
+            if review.verdict != "FAIL":
+                raise ContractError("WORKFLOW_REQUIRES_FORMAL_FAILURE")
+            from .contracts import strings
+
+            changes = strings(workflow["changes"], 16)
+            content["workflow"] = {
+                "phase": expected,
+                "previous_proposal": asdict(previous),
+                "review": asdict(review),
+                "changes": list(changes),
+            }
         approved_text(content)
         encoded = canonical(content)
         if len(encoded.encode("utf-8")) > 32768:

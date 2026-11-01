@@ -204,7 +204,7 @@ class Repository:
             "effective_candidates": sum(j["gate"] == "PASS" for j in report["jobs"]),
             "token_usage": None,
             "llm_cost": None,
-            "data_version": "mock-v1",
+            "data_version": "wq-live-v1" if report["phase"] == "M1.5" else "mock-v1",
             "elapsed_seconds": (
                 datetime.fromisoformat(report["updated_at"])
                 - datetime.fromisoformat(report["created_at"])

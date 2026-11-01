@@ -1,0 +1,26 @@
+{
+  "region": "USA",
+  "universe": "TOP3000",
+  "delay": 1,
+  "instrument": "EQUITY",
+  "budget_limit": 1,
+  "expression": "rank(close)",
+  "max_polls": 120,
+  "fields": {"close": "MATRIX"},
+  "operators": {"rank": 1},
+  "simulation_settings": {
+    "instrumentType": "EQUITY",
+    "region": "USA",
+    "universe": "TOP3000",
+    "delay": 1,
+    "decay": 0,
+    "neutralization": "SUBINDUSTRY",
+    "truncation": 0.08,
+    "pasteurization": "ON",
+    "testPeriod": "P0Y",
+    "unitHandling": "VERIFY",
+    "nanHandling": "ON",
+    "language": "FASTEXPR",
+    "visualization": false
+  }
+}

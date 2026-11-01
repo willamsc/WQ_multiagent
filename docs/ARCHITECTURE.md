@@ -173,3 +173,60 @@ M1 Replay nodes are not changed. CLI adds independent agent run/show/probe/smoke
 No shared backend private session, raw output, secrets or hidden reasoning are persisted.
 AGENT_INTEROP.md documents logical-vs-physical isolation, cancellation limits and the
 actual optional-backend evidence; no real research process was launched in this batch.
+
+## M1.5 manual WQ simulations and rolling multi-simulation batches
+
+`wq/` adds opt-in CLI/config, a stdlib HTTPS boundary, single/multi simulation adapters
+and a rolling batch runner. M1 mock commands retain their semantics. Each Alpha uses
+its own original Controller Run/Job, admission, reservation, attempt and result.
+No schema migration. Live phase is M1.5; complete settings participate in fingerprints.
+Backend identity defaults to mock-v1 for legacy configs. Local gate labels distinguish
+live evidence from mock metrics and formal platform submission approval.
+
+The adapter coalesces pending submissions into arrays, retaining singleton object tails.
+The runner bounds batch work slots and replenishes completed groups. HTTP session I/O
+is serialized while accepted remote simulations overlap. Children are joined by AST
+and echoed settings, never by order; completed parent and child results are cached.
+Live responses omit testPeriod: only that absence is allowed with an explicit evidence
+gap; differing values and other missing settings remain rejected. Full requested settings
+still bind the fingerprint. Credential-file outer quotes are parsed without unescaping
+passwords; environment values remain literal. Both fixes have regression tests.
+Receipts retain parent URL and request identity, without credentials/cookies. UNKNOWN
+keeps existing budget semantics and halts new group admission; peers finish normally.
+
+Existing audit/Trace/read models/replay are reused, with no invented batch events or
+automatic reconciliation. Actual authentication, schema and account-specific batch
+quotas require verification. Ordinary authentication has since been verified (201),
+and one actual remote Alpha completed. Its original local FAILED/UNKNOWN record remains
+frozen: wq inspect only reads the receipt and current metrics, never rewrites history.
+See M15_WQ_SIMULATION.md and M15_DELIVERY.md for exact acceptance limits.
+
+## M2-B Generator–Critic research loop
+
+`research_loop/` is a separate Controller-owned domain over the existing Agent Runtime.
+It adds immutable main-signal versions, locked independent/regression reviews and final
+admission, with bounded repairs, authorized calls, evidence queries and execution time.
+No simulation adapter is passed to research agents and no automatic WQ calls occur.
+
+The M2-A Runtime/Backend/AgentLedger contracts remain intact. ContextBuilder gains an
+optional strictly validated workflow view for formal repair/regression data, and fixes
+sensitive text recursion through dataclass tuples. Independent review of every new
+version has no prior review or generator private history. Only after it is committed
+PASS may a fresh Critic task see prior formal defects and derived changed-field names.
+All prior failed versions must be regressed before approval, enforced again in SQLite.
+
+AgentLedger user_version stays 1; loop_schema v1 tracks additive signal_studies/tasks/
+versions/reviews/events/evidence_requests. No migration of M1/M1.5 tables. Transactions,
+CAS, unique keys, immutable row triggers and current-result checks prevent replacement
+of accepted versions/reviews by duplicate or stale executions. Backend routing is fixed
+for the study; no failed-review fallback or automatic retry/resume is offered.
+
+Evidence Gateway only matches exact IDs in an approved structured catalog. It binds
+Critic identity/version and quota, never accesses arbitrary files, network, MCP or RAG,
+and never turns available evidence into automatic admission. research_summary reuses
+read-only consistent snapshots, sanitization, reference closure and safe JSON exports;
+study show and observe study share that view. Existing Replay nodes are unchanged.
+
+Mock is trusted in-process protocol validation, not physical isolation. Real backend
+execution stays fail closed until host permissions are verified; no framework added.
+See M2B_BASELINE_AUDIT.md, M2B_RESEARCH_LOOP.md and M2B_DELIVERY.md.

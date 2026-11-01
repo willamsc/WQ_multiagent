@@ -31,6 +31,7 @@
     REMOTE_FAILED:'模拟执行返回失败',RATE_LIMIT:'限流尝试次数耗尽',PERSISTENCE_FAILURE:'结果写入失败，需人工检查',
     INTERNAL:'内部处理未完成',NODE_EXCEPTION:'诊断记录了节点调用异常',
     MOCK_GATE_PASS:'达到本地模拟门槛',MOCK_GATE_FAIL:'未达到本地模拟门槛',
+    LOCAL_RESEARCH_GATE_PASS:'达到本地研究门槛，不代表平台提交获批',LOCAL_RESEARCH_GATE_FAIL:'未达到本地研究门槛',
     TRACE_NODE_FAILURE:'诊断调用曾发生异常，不代表研究最终失败',RATE_LIMIT_RECORDED:'已记录一次限流',
     RATE_LIMIT_EXHAUSTED:'限流尝试次数耗尽',REMOTE_EXECUTION_UNKNOWN:'远程执行未知，不会自动重发',
     RUN_JOB_STATE_MISMATCH_MANUAL_REVIEW:'研究失败，但任务仍处于查询状态；仅供人工核查，不自动恢复'};

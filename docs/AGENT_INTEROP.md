@@ -130,5 +130,7 @@ agent_task / agent_attempt / agent_context / agent_result / agent_audit 引用�
 credential/token 等词的普通文字，不能识别任意未标注秘密。JSON 导出有大小限制，
 原子写入并拒绝覆盖 SQLite、WAL/SHM，包括伪装成 .json 的 SQLite 文件。
 
-未实现：MainSignal 库/修复和复审循环、审批、Evidence Gateway、仲裁、func1/func2、
-RAG/MCP、真实回测、Agent 流程前端或生产级恢复。进入 M2-B 仍需单独授权和审查。
+以上为 M2-A 基础层范围。后续授权的 M2-B 现已实现最小主信号版本、有限修复、两阶段
+复审、审批和批准目录网关，见 [M2-B 说明](M2B_RESEARCH_LOOP.md)。M1.5 真实回测是另一
+独立入口，不会自动交给研究 Agent。尚无仲裁、func1/func2、RAG/MCP、Agent 流程前端或
+生产级恢复；真实 Agent 权限隔离要求不因新增研究流程放宽。

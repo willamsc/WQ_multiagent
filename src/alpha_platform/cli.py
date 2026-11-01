@@ -122,6 +122,12 @@ def main(argv=None):
     from .agent_interop.cli import add_agent_commands
 
     add_agent_commands(sub)
+    from .research_loop.cli import add_study_commands, add_study_read_options
+
+    add_study_commands(sub)
+    from .wq.cli import add_wq_commands
+
+    add_wq_commands(sub)
     sub.add_parser("init-db")
     research = sub.add_parser("research").add_subparsers(dest="action", required=True)
     run = research.add_parser("run")
@@ -137,6 +143,7 @@ def main(argv=None):
     show.add_argument("run_id")
     observer = sub.add_parser("observe", help="Read-only run diagnostics; never starts a server")
     actions = observer.add_subparsers(dest="action", required=True)
+    add_study_read_options(actions.add_parser("study", help="只读 M2-B 研究、版本、审查和证据"))
     for action in ("show", "timeline", "graph", "inspect", "export", "report", "replay"):
         command = actions.add_parser(action)
         command.add_argument("--run-id", required=True)
@@ -160,6 +167,14 @@ def main(argv=None):
         if action == "inspect":
             command.add_argument("--source-ref", required=True)
     args = parser.parse_args(argv)
+    if args.command == "study" or (args.command == "observe" and args.action == "study"):
+        from .research_loop.cli import run_study_command
+
+        return run_study_command(args)
+    if args.command == "wq":
+        from .wq.cli import run_wq_command
+
+        return run_wq_command(args)
     if args.command == "agent":
         from .agent_interop.cli import run_agent_command
 

@@ -64,7 +64,7 @@ def fingerprints(canonical, config):
         "expression": canonical,
         "settings": config.settings(),
         "metadata": {"fields": config.fields, "operators": config.operators},
-        "adapter": "mock-v1",
+        "adapter": getattr(config, "adapter_identity", "mock-v1"),
     }
 
     def digest(value):

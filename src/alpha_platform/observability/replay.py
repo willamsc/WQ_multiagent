@@ -59,6 +59,8 @@ REASON_LABELS = {
     "NODE_EXCEPTION": "诊断记录了调用异常（不等同于研究终态）",
     "MOCK_GATE_PASS": "模拟指标达到本地示例门槛",
     "MOCK_GATE_FAIL": "模拟指标未达到本地示例门槛",
+    "LOCAL_RESEARCH_GATE_PASS": "回测指标达到本地研究门槛，不代表平台提交获批",
+    "LOCAL_RESEARCH_GATE_FAIL": "回测指标未达到本地研究门槛",
 }
 
 

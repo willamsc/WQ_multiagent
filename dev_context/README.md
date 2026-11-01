@@ -11,6 +11,8 @@
 | 004 · M1-O.1 | 中文历史回放、纯投影器、浏览器验收；117 项通过 | [详情](changes/004-replay-studio/DETAILS.md) |
 | 005 · 仓库与上下文 | 建立分层开发记录，源码与文档首次推送 GitHub main | [详情](changes/005-github-context/DETAILS.md) |
 | 006 · M2-A | 统一 Runtime、独立角色/Context、Mock 后端、版本与尝试账本；171 项通过，真实 CLI 受隔离门控阻断 | [详情](changes/006-agent-interop/DETAILS.md) |
+| 007 · M1.5 | 人工 WQ 回测、8×6/8×10 离线验证和滚动补位；修复认证引号/结果缺字段兼容，真实单任务已完成但本地冻结未改写 | [详情](changes/007-wq-simulation/DETAILS.md) |
+| 008 · M2-B | 主信号版本、独立审查、有限修复/二阶段复验、证据网关及只读观察；244 项通过，真实模型仍受门控 | [详情](changes/008-research-loop/DETAILS.md) |
 
-后续记录沿用 `changes/007-简短主题/DETAILS.md`。每条索引控制在一两句话；详情
+后续记录沿用 `changes/009-简短主题/DETAILS.md`。每条索引控制在一两句话；详情
 记录背景、改动文件、取舍、实际验证、风险、后续事项和可用的提交号。

@@ -14,3 +14,5 @@ pytest-cache-files-*/
 /WQP_CommunityState_20261027_223334.json
 # Reproducible browser stress/security fixtures; retain QA results and screenshots.
 /examples/replay-browser-qa/*-fixture.html
+# Local live-account protocol evidence, not reusable public fixtures.
+/examples/wq-live-evidence.json

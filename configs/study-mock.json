@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "signal_id": "sample-main-signal",
+  "sources": {
+    "objective": "验证主信号生成、独立审查和有限修复契约；所有资料都是离线夹具",
+    "settings": {"region": "GBR", "universe": "TOP700", "delay": 1, "instrument": "EQUITY"},
+    "field_metadata": {"mock_value": {"type": "MATRIX", "description": "用于工程验收，不是实际 WQ 字段"}},
+    "evidence": [{"ref": "e:fixture", "scope": "provided_evidence", "summary": "合成证据，不支持任何真实收益结论"}]
+  },
+  "policy": {"max_repairs": 1, "max_agent_calls": 8, "timeout_seconds": 1, "total_timeout_seconds": 30, "max_evidence_requests": 2, "operators": {"rank": 1}},
+  "evidence_catalog": [{"ref": "e:additional", "scope": "provided_evidence", "summary": "仅用于验证授权检索路由的追加合成资料"}]
+}

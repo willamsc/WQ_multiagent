@@ -46,6 +46,8 @@ def reason_code(reason):
         "RATE_LIMIT",
         "MOCK_GATE_PASS",
         "MOCK_GATE_FAIL",
+        "LOCAL_RESEARCH_GATE_PASS",
+        "LOCAL_RESEARCH_GATE_FAIL",
     ):
         if reason.startswith(token):
             return token
@@ -133,9 +135,10 @@ class ObservatoryReader:
             for key in ("region", "universe", "delay", "instrument", "min_sharpe")
         }
         jobs = []
+        result_gaps = set()
         for item in self.db.execute(
             "SELECT j.*, a.expression, a.canonical_expression, "
-            "a.fingerprint, r.metrics_json, r.checks_json, r.gate "
+            "a.fingerprint, r.metrics_json, r.checks_json, r.raw_json, r.gate "
             "FROM sim_jobs j JOIN alphas a ON a.id=j.alpha_id "
             "LEFT JOIN sim_results r ON r.job_id=j.id "
             "WHERE j.run_id=? ORDER BY j.id LIMIT 100",
@@ -164,6 +167,12 @@ class ObservatoryReader:
             }
             add(job["source_ref"], "BUSINESS", {k: v for k, v in job.items() if k != "source_ref"})
             if job["result_present"]:
+                raw = unpack(item["raw_json"])
+                if isinstance(raw, dict) and isinstance(raw.get("evidence_gaps"), list):
+                    if "WQ_TEST_PERIOD_NOT_ECHOED" in raw["evidence_gaps"]:
+                        result_gaps.add(
+                            "WQ_TEST_PERIOD_NOT_ECHOED: remote test period was not verified"
+                        )
                 metrics = unpack(item["metrics_json"])
                 job["result_ref"] = add(
                     f"result:{item['id']}",
@@ -376,7 +385,7 @@ class ObservatoryReader:
         )
         nodes, edges = build_graph(events, jobs, run["status"], anomalies)
         next(n for n in nodes if n["id"] == "run_terminal")["evidence_refs"].append(run_ref)
-        gaps = []
+        gaps = sorted(result_gaps)
         if not traces:
             gaps.append("NO_OPTIONAL_TRACE: historical durations and poll responses unavailable")
         if not rows or audit_count > len(rows):
